@@ -128,7 +128,8 @@ code,
   animation: fadeUp 0.75s var(--ease) 0.05s forwards;
 }
 
-.loader-word svg {
+.loader-word svg,
+.loader-word .brand-mark {
   color: #fff;
 }
 
@@ -268,8 +269,16 @@ code,
   flex-shrink: 0;
 }
 
-.nav-brand svg {
+.nav-brand svg,
+.nav-brand .brand-mark {
   color: #f3f1ee;
+  display: block;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.loader-word .brand-mark {
+  border-radius: 5px;
 }
 
 .nav-links {

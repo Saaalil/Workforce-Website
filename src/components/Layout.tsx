@@ -36,7 +36,7 @@ export function Layout() {
       <div className="shell">
         <header className={`nav${scrolled ? " is-scrolled" : ""}`}>
           <Link className="nav-brand" to="/" aria-label="Workforce home">
-            <Mark />
+            <Mark size={22} />
             <span>Workforce</span>
           </Link>
           <nav className="nav-links" aria-label="Primary">
