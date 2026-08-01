@@ -7,6 +7,8 @@ import {
   CURSOR_CONFIG,
   CURSOR_GUIDE,
   LOCAL_CONFIG,
+  NPM_INSTALL_CMD,
+  NPM_INSTALL_CONFIG,
   PROMPT_GROUPS,
   TOOLS,
   USAGE_PROMPTS,
@@ -42,14 +44,23 @@ function useCopy() {
 
 export function InstallPage() {
   const [host, setHost] = useState<"cursor" | "claude">("cursor");
-  const [configTab, setConfigTab] = useState<"npx" | "local">("npx");
+  const [configTab, setConfigTab] = useState<"npx" | "npm" | "local">("npx");
   const [cliTab, setCliTab] = useState<"unix" | "win" | "json">("unix");
   const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
   const hostId = useId();
   const configId = useId();
   const { copiedKey, errorKey, copy } = useCopy();
 
-  const ideConfig = configTab === "npx" ? CURSOR_CONFIG : LOCAL_CONFIG;
+  const ideConfig =
+    configTab === "npx"
+      ? CURSOR_CONFIG
+      : configTab === "npm"
+        ? NPM_INSTALL_CONFIG
+        : LOCAL_CONFIG;
+  const ideCopyText =
+    configTab === "npm"
+      ? `${NPM_INSTALL_CMD}\n\n${NPM_INSTALL_CONFIG}`
+      : ideConfig;
   const cliSnippet =
     cliTab === "unix"
       ? CLAUDE_CLI_CMD
@@ -73,10 +84,20 @@ export function InstallPage() {
         <p className="section-label">Setup</p>
         <h1 className="section-title">Install in under two minutes</h1>
         <p className="section-lead">
-          Add Workforce once, then call prompts like{" "}
-          <span className="mono">workforce/UI</span> or{" "}
-          <span className="mono">workforce/FE</span>. Same MCP for Cursor-style
-          IDEs and Claude Code / CLI harnesses.
+          Published on npm as{" "}
+          <a
+            className="inline-link"
+            href="https://www.npmjs.com/package/@saaalil/workforce-mcp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @saaalil/workforce-mcp
+          </a>
+          . For Cursor, prefer{" "}
+          <span className="mono">npx</span> in MCP settings —{" "}
+          <span className="mono">npm i</span> is different (installs into a
+          project, then point MCP at{" "}
+          <span className="mono">node_modules</span>).
         </p>
       </Reveal>
 
@@ -122,8 +143,12 @@ export function InstallPage() {
             {host === "cursor" ? (
               <>
                 <p className="guide-intro">
-                  For Cursor and other MCP-capable IDEs that use an{" "}
-                  <span className="mono">mcpServers</span> JSON config.
+                  For Cursor and other MCP-capable IDEs. Package:{" "}
+                  <span className="mono">@saaalil/workforce-mcp</span>.{" "}
+                  <span className="mono">npx</span> runs the published server
+                  with no project install. <span className="mono">npm i</span>{" "}
+                  installs it into the repo — then use the{" "}
+                  <span className="mono">node_modules</span> path in MCP config.
                 </p>
                 <ol className="guide-steps">
                   {CURSOR_GUIDE.map((step, i) => (
@@ -161,6 +186,18 @@ export function InstallPage() {
                     <button
                       type="button"
                       role="tab"
+                      id={`${configId}-npm`}
+                      aria-selected={configTab === "npm"}
+                      aria-controls={`${configId}-panel`}
+                      tabIndex={configTab === "npm" ? 0 : -1}
+                      className={`install-tab${configTab === "npm" ? " is-active" : ""}`}
+                      onClick={() => setConfigTab("npm")}
+                    >
+                      npm install
+                    </button>
+                    <button
+                      type="button"
+                      role="tab"
                       id={`${configId}-local`}
                       aria-selected={configTab === "local"}
                       aria-controls={`${configId}-panel`}
@@ -177,19 +214,36 @@ export function InstallPage() {
                     id={`${configId}-panel`}
                     aria-labelledby={`${configId}-${configTab}`}
                   >
-                    <pre
-                      key={configTab}
-                      className="code-fade"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightJson(ideConfig),
-                      }}
-                    />
+                    {configTab === "npm" ? (
+                      <div key="npm" className="code-fade npm-install-block">
+                        <p className="npm-install-note">
+                          1) Install into the project (what npmjs shows):
+                        </p>
+                        <pre>{NPM_INSTALL_CMD}</pre>
+                        <p className="npm-install-note">
+                          2) Point MCP at the installed package:
+                        </p>
+                        <pre
+                          dangerouslySetInnerHTML={{
+                            __html: highlightJson(NPM_INSTALL_CONFIG),
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <pre
+                        key={configTab}
+                        className="code-fade"
+                        dangerouslySetInnerHTML={{
+                          __html: highlightJson(ideConfig),
+                        }}
+                      />
+                    )}
                   </div>
                   <div className="copy-row">
                     <button
                       type="button"
                       className={`copy-btn${copiedKey === "ide" ? " is-success" : ""}${errorKey === "ide" ? " is-error" : ""}`}
-                      onClick={() => copy("ide", ideConfig)}
+                      onClick={() => copy("ide", ideCopyText)}
                     >
                       {errorKey === "ide"
                         ? "copy failed"

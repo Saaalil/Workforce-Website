@@ -345,6 +345,18 @@ export const CURSOR_CONFIG = `{
   }
 }`;
 
+/** After `npm i @saaalil/workforce-mcp` in a project */
+export const NPM_INSTALL_CONFIG = `{
+  "mcpServers": {
+    "workforce": {
+      "command": "node",
+      "args": ["./node_modules/@saaalil/workforce-mcp/dist/index.js"]
+    }
+  }
+}`;
+
+export const NPM_INSTALL_CMD = `npm i @saaalil/workforce-mcp`;
+
 export const LOCAL_CONFIG = `{
   "mcpServers": {
     "workforce": {
@@ -379,7 +391,7 @@ export const CURSOR_GUIDE: GuideStep[] = [
   },
   {
     title: "Add the Workforce server",
-    body: "Paste the config below (npx is the fast path). Or point command at a local build of Workforce-MCP if you cloned the repo.",
+    body: "Use npx (recommended — no project install). Or npm i @saaalil/workforce-mcp in a project and point node at node_modules. Local clone is for contributors.",
   },
   {
     title: "Save and enable",
@@ -402,7 +414,7 @@ export const CLAUDE_GUIDE: GuideStep[] = [
   },
   {
     title: "Add Workforce via CLI",
-    body: "Run the command below. --scope user makes it available across projects. On native Windows, use the cmd /c variant so npx spawns correctly.",
+    body: "Run the command below (uses the published npm package @saaalil/workforce-mcp). --scope user makes it available across projects. On native Windows, use the cmd /c variant so npx spawns correctly.",
   },
   {
     title: "Confirm it’s registered",

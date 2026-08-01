@@ -21,7 +21,11 @@ export function HowPage() {
         <Reveal className="flow-step" delayMs={40}>
           <span className="n">01</span>
           <h2>Install the package</h2>
-          <p>Add Workforce to Cursor or Claude. One MCP for every specialty.</p>
+          <p>
+            Add{" "}
+            <span className="mono">@saaalil/workforce-mcp</span> via npx in
+            Cursor/Claude — one MCP for every specialty.
+          </p>
         </Reveal>
         <Reveal className="flow-step" delayMs={100}>
           <span className="n">02</span>
