@@ -345,17 +345,20 @@ export const CURSOR_CONFIG = `{
   }
 }`;
 
-/** After `npm i @saaalil/workforce-mcp` in a project */
+/** After `npm i @saaalil/workforce-mcp` — only works in that project folder */
 export const NPM_INSTALL_CONFIG = `{
   "mcpServers": {
     "workforce": {
-      "command": "node",
-      "args": ["./node_modules/@saaalil/workforce-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@saaalil/workforce-mcp"]
     }
   }
 }`;
 
 export const NPM_INSTALL_CMD = `npm i @saaalil/workforce-mcp`;
+
+export const NPM_INSTALL_NOTE =
+  "npm i installs the package into a Node project. For Cursor MCP, still use npx (recommended). Do not point Cursor at ./node_modules/... unless that package is installed in the same workspace.";
 
 export const LOCAL_CONFIG = `{
   "mcpServers": {

@@ -217,11 +217,18 @@ export function InstallPage() {
                     {configTab === "npm" ? (
                       <div key="npm" className="code-fade npm-install-block">
                         <p className="npm-install-note">
-                          1) Install into the project (what npmjs shows):
+                          Optional: add the package to a Node project (what
+                          npmjs shows). This alone does{" "}
+                          <strong>not</strong> configure Cursor.
                         </p>
                         <pre>{NPM_INSTALL_CMD}</pre>
                         <p className="npm-install-note">
-                          2) Point MCP at the installed package:
+                          For Cursor MCP, still use{" "}
+                          <span className="mono">npx</span> (same as the npx
+                          tab). Never point{" "}
+                          <span className="mono">command: node</span> at{" "}
+                          <span className="mono">./node_modules/...</span>{" "}
+                          unless that folder exists in the open workspace.
                         </p>
                         <pre
                           dangerouslySetInnerHTML={{
