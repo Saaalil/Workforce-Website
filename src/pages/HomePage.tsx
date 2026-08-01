@@ -16,7 +16,7 @@ export function HomePage() {
         </h1>
         <Reveal delayMs={160}>
           <p className="hero-line">
-            Need specialist work — UI, data, ML, SRE — without doing all the
+            Need specialist work : UI, data, ML, SRE  :- without doing all the
             setup yourself? Install once and get the best context and prompts
             for whatever you’re building.
           </p>
