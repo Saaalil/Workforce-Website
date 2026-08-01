@@ -9,6 +9,7 @@ import {
   LOCAL_CONFIG,
   NPM_INSTALL_CMD,
   NPM_INSTALL_CONFIG,
+  ORCHESTRATION_PROMPTS,
   PROMPT_GROUPS,
   TOOLS,
   USAGE_PROMPTS,
@@ -402,6 +403,45 @@ export function InstallPage() {
           >
             <code className="call-chip">{t.name}</code>
             <p>{t.achieves}</p>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal>
+        <div className="use-block use-block-tight">
+          <p className="guide-snippet-label">Orchestration</p>
+          <h3 className="use-subtitle">Discuss → delegate → execute</h3>
+          <p className="section-lead use-lead">
+            Multi-specialty meeting, then an ownership plan — then load one craft
+            specialty at a time.
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="prompt-catalog">
+        {ORCHESTRATION_PROMPTS.map((g, i) => (
+          <Reveal
+            key={g.flag}
+            className="prompt-catalog-item"
+            delayMs={Math.min(i * 20, 80)}
+          >
+            <div className="prompt-catalog-head">
+              <span className="prompt-flag">workforce/{g.flag}</span>
+              <h3 className="specialty-name">{g.name}</h3>
+            </div>
+            <p className="prompt-catalog-achieves">
+              <strong>Achieve:</strong> {g.achieves}
+            </p>
+            <p className="prompt-catalog-when">
+              <span className="mono">When:</span> {g.when}
+            </p>
+            <div className="call-chips" aria-label={`Calls for ${g.name}`}>
+              {g.calls.map((c) => (
+                <code key={c} className="call-chip">
+                  {c}
+                </code>
+              ))}
+            </div>
           </Reveal>
         ))}
       </div>

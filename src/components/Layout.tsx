@@ -65,13 +65,15 @@ export function Layout() {
 
         <footer className="footer">
           <div className="footer-meta">
-            <span>@saaalil/workforce-mcp · v1.2.0</span>
+            <span>@saaalil/workforce-mcp · v1.3.0</span>
             <span className="footer-sep" aria-hidden>
               ·
             </span>
             <span>install once · specialist context on demand</span>
           </div>
           <div className="footer-social">
+            <Link to="/support">Support</Link>
+            <Link to="/whats-new">What’s new</Link>
             <span className="footer-by">by Salil</span>
             <a
               href="https://github.com/Saaalil/"

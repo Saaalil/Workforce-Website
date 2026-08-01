@@ -1,4 +1,4 @@
-import { TOOLS, PROMPT_GROUPS } from "../data";
+import { TOOLS, PROMPT_GROUPS, ORCHESTRATION_PROMPTS } from "../data";
 import { Reveal } from "../components/Reveal";
 
 export function ToolsPage() {
@@ -10,7 +10,9 @@ export function ToolsPage() {
         <p className="section-lead">
           Underscore names are tools. Slash names are specialty prompts — call{" "}
           <span className="mono">workforce/UI</span> or{" "}
-          <span className="mono">workforce/DE</span> to load that context.
+          <span className="mono">workforce/DE</span> to load that context. Use{" "}
+          <span className="mono">workforce/discuss</span> and{" "}
+          <span className="mono">workforce/delegate</span> to orchestrate.
         </p>
       </Reveal>
 
@@ -24,6 +26,43 @@ export function ToolsPage() {
           <Reveal key={t.name} className="tool" delayMs={i * 40}>
             <code>{t.name}</code>
             <p>{t.achieves}</p>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal>
+        <div className="use-block">
+          <p className="section-label">Orchestration</p>
+          <h2 className="use-title">Discuss → delegate</h2>
+          <p className="section-lead use-lead">
+            Multi-role POV first, then who owns which slice — then one specialty
+            at a time.
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="prompt-catalog">
+        {ORCHESTRATION_PROMPTS.map((g, i) => (
+          <Reveal
+            key={g.flag}
+            className="prompt-catalog-item"
+            delayMs={Math.min(i * 25, 80)}
+          >
+            <div className="prompt-catalog-head">
+              <span className="prompt-flag">workforce/{g.flag}</span>
+              <h3 className="specialty-name">{g.name}</h3>
+            </div>
+            <p className="prompt-catalog-achieves">{g.achieves}</p>
+            <p className="prompt-catalog-when">
+              <span className="mono">When:</span> {g.when}
+            </p>
+            <div className="call-chips" aria-label={`Calls for ${g.name}`}>
+              {g.calls.map((c) => (
+                <code key={c} className="call-chip">
+                  {c}
+                </code>
+              ))}
+            </div>
           </Reveal>
         ))}
       </div>

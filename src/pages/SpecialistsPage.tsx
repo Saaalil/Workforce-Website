@@ -17,7 +17,7 @@ export function SpecialistsPage() {
 
       <div className="stat-strip">
         <Reveal className="stat" delayMs={40}>
-          <strong>13</strong>
+          <strong>14</strong>
           <span>specialties</span>
         </Reveal>
         <Reveal className="stat" delayMs={80}>

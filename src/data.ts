@@ -217,6 +217,22 @@ export const SPECIALISTS: Specialist[] = [
     prompt:
       "workforce/QA — build a Playwright suite for auth + checkout P0 paths and a CI release gate",
   },
+  {
+    flag: "MGR",
+    name: "Manager / Delivery Lead",
+    achieves:
+      "Breaks work into specialty-owned slices, sequences handoffs, and runs multi-role reviews — who does what, in what order, with clear acceptance.",
+    bestFor:
+      "New initiatives, cross-specialty features, “who should own this?”, scrum-style alignment before craft work.",
+    stats: [
+      { label: "default tools", value: "discuss + delegate" },
+      { label: "rule", value: "one specialty at a time" },
+      { label: "output", value: "ownership plan" },
+    ],
+    when: "Need to decide which specialties own which parts — or run a multi-POV discussion first.",
+    prompt:
+      "workforce/MGR — break “express checkout” into specialty slices with order, acceptance, and first workforce/FLAG to call",
+  },
 ];
 
 /** Compact grid still used if needed */
@@ -254,6 +270,41 @@ export const TOOLS = [
     name: "workforce_handoff",
     achieves:
       "Switch specialist context cleanly (e.g. ARCH→FE, DE→AI, OPS→SRE) with findings and artifacts carried forward for the next slice of work.",
+  },
+  {
+    name: "workforce_discuss",
+    achieves:
+      "Multi-specialty meeting — scrum, critique, premortem, war room, retro, design review, or postmortem theater (full cast, one corrective action per specialty).",
+  },
+  {
+    name: "workforce_delegate",
+    achieves:
+      "Manager-style ownership plan: which specialty owns which slice, in what order, with acceptance checks and workforce/FLAG invoke hints.",
+  },
+] as const;
+
+/** Orchestration prompts (not a craft specialty — facilitate multi-role work). */
+export const ORCHESTRATION_PROMPTS = [
+  {
+    flag: "discuss",
+    name: "Discuss (multi-specialty)",
+    achieves:
+      "Scrum-style (or critique / premortem / war room / retro / design review / postmortem theater) round-table — challenges from each specialty POV, then a recommended sequence. Postmortem theater always seats every specialty.",
+    when: "Before building something cross-cutting, after an incident, or when you want every craft’s objections on the table.",
+    calls: [
+      "workforce/discuss",
+      "workforce/scrum",
+      "workforce/postmortem",
+      "workforce/postmortem_theater",
+    ],
+  },
+  {
+    flag: "delegate",
+    name: "Delegate (ownership plan)",
+    achieves:
+      "Break a goal into specialty-owned slices with order, acceptance checks, and workforce/FLAG invoke hints.",
+    when: "After discuss, or whenever you ask “who should do what?”",
+    calls: ["workforce/delegate", "workforce/plan_work"],
   },
 ] as const;
 
@@ -325,6 +376,15 @@ export const PROMPT_GROUPS = SPECIALISTS.map((s) => {
     MON: ["workforce/monitoring", "workforce/MON"],
     SEC: ["workforce/security", "workforce/SEC"],
     QA: ["workforce/qa", "workforce/qe"],
+    MGR: [
+      "workforce/manager",
+      "workforce/MGR",
+      "workforce/em",
+      "workforce/eng_manager",
+      "workforce/engineering_manager",
+      "workforce/delivery_lead",
+      "workforce/scrum_master",
+    ],
   };
 
   return {
@@ -436,6 +496,56 @@ export const CLAUDE_GUIDE: GuideStep[] = [
 export const NAV = [
   { to: "/how", label: "How it works" },
   { to: "/specialists", label: "Specialists" },
+  { to: "/whats-new", label: "What's new" },
   { to: "/install", label: "Install" },
   { to: "/tools", label: "Tools" },
+  { to: "/support", label: "Support" },
 ] as const;
+
+export const PACKAGE = {
+  name: "@saaalil/workforce-mcp",
+  version: "1.3.0",
+  npmUrl: "https://www.npmjs.com/package/@saaalil/workforce-mcp",
+  githubUrl: "https://github.com/Saaalil/Workforce-MCP",
+  websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
+} as const;
+
+export type WhatsNewItem = {
+  flag: string;
+  title: string;
+  body: string;
+  call: string;
+  when: string;
+};
+
+/** v1.3.0 orchestration release — featured on home + /whats-new */
+export const WHATS_NEW: WhatsNewItem[] = [
+  {
+    flag: "MGR",
+    title: "Manager specialty",
+    body: "Delegate slices across the roster, sequence handoffs, and keep one specialty executing at a time — not a hiring tool, a delivery lead for your agent.",
+    call: "workforce/MGR",
+    when: "Who should own what before craft work starts",
+  },
+  {
+    flag: "discuss",
+    title: "Multi-specialty discuss",
+    body: "Scrum, critique, premortem, war room, retro, or design review — challenges from each craft POV, then a recommended sequence.",
+    call: "workforce/discuss",
+    when: "Cross-cutting ideas that need every specialty’s objections",
+  },
+  {
+    flag: "postmortem",
+    title: "Postmortem theater",
+    body: "Full cast on stage after a failure. Every specialty owns exactly one corrective action — blameless on people, ruthless on systems.",
+    call: "workforce/postmortem",
+    when: "After an incident or a deploy that hurt users",
+  },
+  {
+    flag: "delegate",
+    title: "Delegate ownership plan",
+    body: "Break a goal into specialty-owned slices with order, acceptance checks, and workforce/FLAG invoke hints.",
+    call: "workforce/delegate",
+    when: "After discuss, or whenever you ask who does what",
+  },
+];

@@ -29,23 +29,40 @@ export function HowPage() {
         </Reveal>
         <Reveal className="flow-step" delayMs={100}>
           <span className="n">02</span>
-          <h2>Call the specialty</h2>
+          <h2>Discuss, then specialize</h2>
           <p>
-            Use a prompt like{" "}
-            <span className="mono">workforce/UI</span> or{" "}
-            <span className="mono">workforce/FE</span> — short flags and full
-            names both work.
+            Optional:{" "}
+            <span className="mono">workforce/discuss</span> or{" "}
+            <span className="mono">workforce/postmortem</span> across every
+            craft, then{" "}
+            <span className="mono">workforce/delegate</span> — then load one
+            flag at a time.
           </p>
         </Reveal>
         <Reveal className="flow-step" delayMs={160}>
           <span className="n">03</span>
           <h2>Ship with full context</h2>
           <p>
-            Stack defaults, discovery questions, quality bars — ready for that
+            Stack defaults, quality bars, contractor intake — ready for that
             work.
           </p>
         </Reveal>
       </div>
+
+      <Reveal>
+        <p className="section-label">Not a skill dump</p>
+        <h2 className="use-title">vs skill directories</h2>
+        <p className="section-lead">
+          Places like{" "}
+          <a href="https://www.skills.sh/" rel="noreferrer" target="_blank">
+            skills.sh
+          </a>{" "}
+          shine at installing many small procedures. Workforce is a{" "}
+          <strong>coherent roster</strong>: specialties with bars, discuss /
+          delegate orchestration, and one specialty executing at a time —
+          not another shopping cart of prompts.
+        </p>
+      </Reveal>
     </section>
   );
 }
