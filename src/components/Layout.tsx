@@ -64,8 +64,30 @@ export function Layout() {
         </main>
 
         <footer className="footer">
-          <span>workforce-mcp · v1.2</span>
-          <span>install once · specialist context on demand</span>
+          <div className="footer-meta">
+            <span>workforce-mcp · v1.2</span>
+            <span className="footer-sep" aria-hidden>
+              ·
+            </span>
+            <span>install once · specialist context on demand</span>
+          </div>
+          <div className="footer-social">
+            <span className="footer-by">by Salil</span>
+            <a
+              href="https://github.com/Saaalil/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://x.com/HiremathSalil"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X
+            </a>
+          </div>
         </footer>
       </div>
     </>
