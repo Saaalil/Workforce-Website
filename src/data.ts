@@ -228,34 +228,119 @@ export const USAGE_PROMPTS = SPECIALISTS.map((s) => ({
   prompt: s.prompt,
 }));
 
+/** MCP tools — what calling each one achieves */
 export const TOOLS = [
   {
+    name: "workforce_list_roles",
+    achieves:
+      "See the full catalog: short flags, aliases, what each specialty owns and does not own — so you pick the right context before loading one.",
+  },
+  {
     name: "workforce_as",
-    blurb: "Load full specialist context for the work at hand.",
+    achieves:
+      "Load full specialist context for a task (identity, stack defaults, quality bars, anti-patterns, handoffs). The agent investigates, then replies with Goal / Blocking questions / Assumptions / Plan and stops until you approve.",
   },
   {
     name: "workforce_specialize",
-    blurb: "Alias of workforce_as.",
-  },
-  {
-    name: "workforce_list_roles",
-    blurb: "Catalog of flags, aliases, owns / does-not-own.",
+    achieves:
+      "Same as workforce_as — an alias if your agent or UI prefers this name.",
   },
   {
     name: "workforce_consult",
-    blurb: "Mid-task check against a specialty’s quality bars.",
+    achieves:
+      "Mid-work check against an already-loaded specialty’s quality bars and decision frameworks — unblock a decision without switching specialties.",
   },
   {
     name: "workforce_handoff",
-    blurb: "Switch context — ARCH→FE, DE→AI, OPS→SRE.",
+    achieves:
+      "Switch specialist context cleanly (e.g. ARCH→FE, DE→AI, OPS→SRE) with findings and artifacts carried forward for the next slice of work.",
   },
 ] as const;
+
+/**
+ * Every MCP prompt chip Cursor shows under Workforce, grouped by specialty.
+ * Primary call first; aliases are the same specialty context.
+ */
+export const PROMPT_GROUPS = SPECIALISTS.map((s) => {
+  const aliasMap: Record<string, string[]> = {
+    ARCH: [
+      "workforce/architect",
+      "workforce/ARCH",
+      "workforce/sa",
+      "workforce/software_architect",
+      "workforce/system_architect",
+    ],
+    UI: [
+      "workforce/ui_designer",
+      "workforce/UI",
+      "workforce/uid",
+      "workforce/ux",
+      "workforce/ux_designer",
+      "workforce/ui_design",
+      "workforce/product_designer",
+    ],
+    FE: [
+      "workforce/frontend",
+      "workforce/FE",
+      "workforce/front_end",
+      "workforce/web_frontend",
+    ],
+    BE: [
+      "workforce/backend",
+      "workforce/BE",
+      "workforce/back_end",
+      "workforce/api",
+    ],
+    DE: [
+      "workforce/data_engineer",
+      "workforce/DE",
+      "workforce/data_eng",
+      "workforce/etl",
+    ],
+    DS: ["workforce/data_scientist", "workforce/DS"],
+    ML: [
+      "workforce/ml_engineer",
+      "workforce/ML",
+      "workforce/mle",
+      "workforce/model_engineer",
+    ],
+    AI: [
+      "workforce/ai_engineer",
+      "workforce/AI",
+      "workforce/aie",
+      "workforce/llm",
+      "workforce/rag",
+    ],
+    OPS: [
+      "workforce/ops",
+      "workforce/platform_eng",
+      "workforce/platform_engineer",
+      "workforce/doe",
+    ],
+    SRE: [
+      "workforce/sre",
+      "workforce/site_reliability",
+      "workforce/site_reliability_engineer",
+    ],
+    MON: ["workforce/monitoring", "workforce/MON"],
+    SEC: ["workforce/security", "workforce/SEC"],
+    QA: ["workforce/qa", "workforce/qe"],
+  };
+
+  return {
+    flag: s.flag,
+    name: s.name,
+    achieves: s.achieves,
+    when: s.when,
+    calls: aliasMap[s.flag] ?? [`workforce/${s.flag}`],
+  };
+});
 
 export const CURSOR_CONFIG = `{
   "mcpServers": {
     "workforce": {
       "command": "npx",
-      "args": ["-y", "workforce-mcp"]
+      "args": ["-y", "@saaalil/workforce-mcp"]
     }
   }
 }`;
@@ -269,15 +354,15 @@ export const LOCAL_CONFIG = `{
   }
 }`;
 
-export const CLAUDE_CLI_CMD = `claude mcp add --scope user workforce -- npx -y workforce-mcp`;
+export const CLAUDE_CLI_CMD = `claude mcp add --scope user workforce -- npx -y @saaalil/workforce-mcp`;
 
-export const CLAUDE_CLI_CMD_WIN = `claude mcp add --scope user workforce -- cmd /c npx -y workforce-mcp`;
+export const CLAUDE_CLI_CMD_WIN = `claude mcp add --scope user workforce -- cmd /c npx -y @saaalil/workforce-mcp`;
 
 export const CLAUDE_MCP_JSON = `{
   "mcpServers": {
     "workforce": {
       "command": "npx",
-      "args": ["-y", "workforce-mcp"]
+      "args": ["-y", "@saaalil/workforce-mcp"]
     }
   }
 }`;

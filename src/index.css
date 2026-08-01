@@ -1044,8 +1044,122 @@ code,
   margin-bottom: 0.7rem;
 }
 
+.use-subtitle {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.use-block-tight {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
 .use-lead {
   margin-bottom: 1.25rem;
+}
+
+.achieve-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.achieve-row {
+  background: rgba(8, 8, 9, 0.72);
+  padding: 1.1rem 1.2rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+@media (min-width: 720px) {
+  .achieve-row {
+    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.35fr);
+    align-items: start;
+    gap: 1.25rem;
+  }
+}
+
+.achieve-row p {
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  line-height: 1.55;
+}
+
+.prompt-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.prompt-catalog-item {
+  background: rgba(8, 8, 9, 0.72);
+  padding: 1.35rem 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.prompt-catalog-item:hover {
+  background: var(--bg-elevated);
+}
+
+.prompt-catalog-head {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.prompt-catalog-achieves {
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  line-height: 1.55;
+}
+
+.prompt-catalog-achieves strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.prompt-catalog-when {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+  line-height: 1.45;
+}
+
+.call-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-top: 0.25rem;
+}
+
+.call-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.55rem;
+  white-space: nowrap;
+}
+
+.achieve-row .call-chip {
+  width: fit-content;
 }
 
 .use-steps {
