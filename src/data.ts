@@ -281,6 +281,16 @@ export const TOOLS = [
     achieves:
       "Manager-style ownership plan: which specialty owns which slice, in what order, with acceptance checks and workforce/FLAG invoke hints.",
   },
+  {
+    name: "workforce_list_pods",
+    achieves:
+      "See pod roster presets (WEB, DP, AIP, PLAT, SHIP) — fixed specialty bands, not craft specialties.",
+  },
+  {
+    name: "workforce_pod",
+    achieves:
+      "Run a pod: member POVs + delegation table + first workforce/FLAG. Execute one specialty at a time after.",
+  },
 ] as const;
 
 /** Orchestration prompts (not a craft specialty — facilitate multi-role work). */
@@ -305,6 +315,20 @@ export const ORCHESTRATION_PROMPTS = [
       "Break a goal into specialty-owned slices with order, acceptance checks, and workforce/FLAG invoke hints.",
     when: "After discuss, or whenever you ask “who should do what?”",
     calls: ["workforce/delegate", "workforce/plan_work"],
+  },
+  {
+    flag: "WEB",
+    name: "Pods (roster presets)",
+    achieves:
+      "WEB / DP / AIP / PLAT / SHIP — fixed specialty bands with member POVs and a delegation table. Specialty AI ≠ pod AIP.",
+    when: "You know the craft band but need sequencing before a single specialty.",
+    calls: [
+      "workforce/WEB",
+      "workforce/DP",
+      "workforce/AIP",
+      "workforce/PLAT",
+      "workforce/SHIP",
+    ],
   },
 ] as const;
 
@@ -504,7 +528,7 @@ export const NAV = [
 
 export const PACKAGE = {
   name: "@saaalil/workforce-mcp",
-  version: "1.3.0",
+  version: "1.4.0",
   npmUrl: "https://www.npmjs.com/package/@saaalil/workforce-mcp",
   githubUrl: "https://github.com/Saaalil/Workforce-MCP",
   websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
@@ -518,8 +542,15 @@ export type WhatsNewItem = {
   when: string;
 };
 
-/** v1.3.0 orchestration release — featured on home + /whats-new */
+/** Featured on home + /whats-new */
 export const WHATS_NEW: WhatsNewItem[] = [
+  {
+    flag: "WEB",
+    title: "Pods — roster presets",
+    body: "Call workforce/WEB (UI+FE+BE), DP (DE+DS), AIP (AI+ML+DS+DE), PLAT, or SHIP. Member POVs → delegation → one specialty. Not a mega-skill dump. Specialty AI ≠ pod AIP.",
+    call: "workforce/WEB",
+    when: "You know the band of crafts but not yet the first owner",
+  },
   {
     flag: "MGR",
     title: "Manager specialty",
@@ -530,7 +561,7 @@ export const WHATS_NEW: WhatsNewItem[] = [
   {
     flag: "discuss",
     title: "Multi-specialty discuss",
-    body: "Scrum, critique, premortem, war room, retro, or design review — challenges from each craft POV, then a recommended sequence.",
+    body: "Scrum, critique, premortem, war room, retro, design review, or postmortem theater — challenges from each craft POV, then a recommended sequence.",
     call: "workforce/discuss",
     when: "Cross-cutting ideas that need every specialty’s objections",
   },
@@ -541,11 +572,50 @@ export const WHATS_NEW: WhatsNewItem[] = [
     call: "workforce/postmortem",
     when: "After an incident or a deploy that hurt users",
   },
+];
+
+export type PodCatalogItem = {
+  flag: string;
+  title: string;
+  members: string;
+  when: string;
+  call: string;
+};
+
+export const PODS_CATALOG: PodCatalogItem[] = [
   {
-    flag: "delegate",
-    title: "Delegate ownership plan",
-    body: "Break a goal into specialty-owned slices with order, acceptance checks, and workforce/FLAG invoke hints.",
-    call: "workforce/delegate",
-    when: "After discuss, or whenever you ask who does what",
+    flag: "WEB",
+    title: "Web product",
+    members: "UI · FE · BE",
+    when: "User-facing surfaces and API-backed flows",
+    call: "workforce/WEB",
+  },
+  {
+    flag: "DP",
+    title: "Data product",
+    members: "DS · DE",
+    when: "Marts, SLAs, metrics, experiment-backed data work",
+    call: "workforce/DP",
+  },
+  {
+    flag: "AIP",
+    title: "Intelligence",
+    members: "DS · DE · ML · AI",
+    when: "RAG, agents, model+data stacks (not workforce/AI alone)",
+    call: "workforce/AIP",
+  },
+  {
+    flag: "PLAT",
+    title: "Platform / reliability",
+    members: "OPS · SRE · MON",
+    when: "CI/CD, SLOs, telemetry baselines",
+    call: "workforce/PLAT",
+  },
+  {
+    flag: "SHIP",
+    title: "Ship / release gate",
+    members: "SEC · BE · FE · QA",
+    when: "Pre-prod hardening and release candidates",
+    call: "workforce/SHIP",
   },
 ];

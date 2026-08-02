@@ -65,7 +65,7 @@ export function Layout() {
 
         <footer className="footer">
           <div className="footer-meta">
-            <span>@saaalil/workforce-mcp · v1.3.0</span>
+            <span>@saaalil/workforce-mcp · v1.4.0</span>
             <span className="footer-sep" aria-hidden>
               ·
             </span>
