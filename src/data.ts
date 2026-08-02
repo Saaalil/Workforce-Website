@@ -577,45 +577,91 @@ export const WHATS_NEW: WhatsNewItem[] = [
 export type PodCatalogItem = {
   flag: string;
   title: string;
+  description: string;
   members: string;
+  memberFlags: string[];
+  memberCount: number;
+  sequence: string;
   when: string;
   call: string;
+  prompt: string;
+  note?: string;
 };
 
 export const PODS_CATALOG: PodCatalogItem[] = [
   {
     flag: "WEB",
-    title: "Web product",
+    title: "Web product pod",
+    description:
+      "UI + FE + BE — design and ship a user-facing surface with API contracts. Member POVs, then one specialty at a time (not all three coding at once).",
     members: "UI · FE · BE",
-    when: "User-facing surfaces and API-backed flows",
+    memberFlags: ["UI", "FE", "BE"],
+    memberCount: 3,
+    sequence: "UI → FE + BE (after UI handoff) → optional QA later",
+    when: "Landing pages, app UI, CRUD products, marketing + API-backed flows",
     call: "workforce/WEB",
+    prompt:
+      "workforce/WEB — plan express checkout UI + API: design, frontend, and backend slices with order and acceptance",
   },
   {
     flag: "DP",
-    title: "Data product",
+    title: "Data product pod",
+    description:
+      "DS + DE — decision rigor meets governed pipelines. Lock the metric/estimand, then ship contracts, SLAs, and replayable marts.",
     members: "DS · DE",
-    when: "Marts, SLAs, metrics, experiment-backed data work",
+    memberFlags: ["DS", "DE"],
+    memberCount: 2,
+    sequence:
+      "DS (estimand/metric) → DE (contracts/pipelines) — or DE first if warehouse already framed",
+    when: "Marts, SLAs, experiment specs, analytics products, decision metrics",
     call: "workforce/DP",
+    prompt:
+      "workforce/DP — design the orders gold mart with freshness SLA and the primary decision metric it serves",
   },
   {
     flag: "AIP",
-    title: "Intelligence",
+    title: "Intelligence pod",
+    description:
+      "DS + DE + ML + AI — LLM/agent/RAG or model lifecycle with data and eval discipline. Not the same as specialty workforce/AI alone.",
     members: "DS · DE · ML · AI",
-    when: "RAG, agents, model+data stacks (not workforce/AI alone)",
+    memberFlags: ["DS", "DE", "ML", "AI"],
+    memberCount: 4,
+    sequence: "DS → DE → AI or ML (pick one path) → evals before widen",
+    when: "RAG, agents, ranking models, feature pipelines tied to model/LLM products",
     call: "workforce/AIP",
+    prompt:
+      "workforce/AIP — plan a RAG help assistant for checkout: data contracts, retrieval, evals, and cost caps",
+    note: "Specialty workforce/AI ≠ pod workforce/AIP",
   },
   {
     flag: "PLAT",
-    title: "Platform / reliability",
+    title: "Platform / reliability pod",
+    description:
+      "OPS + SRE + MON — path to prod, SLOs/error budgets, and telemetry that explains the system under load.",
     members: "OPS · SRE · MON",
-    when: "CI/CD, SLOs, telemetry baselines",
+    memberFlags: ["OPS", "SRE", "MON"],
+    memberCount: 3,
+    sequence: "OPS (path to prod) → SRE (SLOs) → MON (telemetry/alerts)",
+    when: "CI/CD, environments, SLOs, incidents, observability baselines",
     call: "workforce/PLAT",
+    prompt:
+      "workforce/PLAT — define CI/CD, checkout SLOs, and golden-signal alerts for the payment path",
   },
   {
     flag: "SHIP",
-    title: "Ship / release gate",
+    title: "Ship / release gate pod",
+    description:
+      "SEC + BE + FE + QA — harden authz and critical journeys, then gate the release. No skipped threat pass.",
     members: "SEC · BE · FE · QA",
-    when: "Pre-prod hardening and release candidates",
+    memberFlags: ["SEC", "BE", "FE", "QA"],
+    memberCount: 4,
+    sequence: "SEC (threat pass) → BE/FE fixes → QA release gate",
+    when: "Pre-prod hardening, auth/money paths, release candidates",
     call: "workforce/SHIP",
+    prompt:
+      "workforce/SHIP — release-gate express checkout: threat model, API/UI fixes, and P0 e2e gate",
   },
 ];
+
+export const POD_COUNT = PODS_CATALOG.length;
+export const SPECIALIST_COUNT = SPECIALISTS.length;

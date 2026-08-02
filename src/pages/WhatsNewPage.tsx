@@ -38,8 +38,11 @@ export function WhatsNewPage() {
               <span className="prompt-flag">{p.call}</span>
               <h3 className="specialty-name">{p.title}</h3>
             </div>
+            <p className="whats-item-body">{p.description}</p>
             <p className="whats-item-body">
               <span className="mono">{p.members}</span>
+              {" · "}
+              {p.memberCount} specialties
             </p>
             <p className="prompt-catalog-when">
               <span className="mono">When:</span> {p.when}

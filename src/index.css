@@ -975,6 +975,37 @@ code,
   word-break: break-word;
 }
 
+.pod-list {
+  margin-bottom: 2.75rem;
+}
+
+.pod-card {
+  border-left: 2px solid rgba(243, 241, 238, 0.22);
+}
+
+.pod-description {
+  margin: 0 0 1.1rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  max-width: 44rem;
+  line-height: 1.55;
+}
+
+.pod-member-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.pod-note {
+  margin: 0.85rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+  font-family: var(--mono);
+  letter-spacing: 0.01em;
+}
+
 /* ——— Install guides ——— */
 .guide {
   border: 1px solid var(--border);
