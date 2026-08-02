@@ -458,6 +458,94 @@ code,
   font-weight: 500;
 }
 
+.npm-dl {
+  display: block;
+  margin-top: 1.75rem;
+  max-width: 22rem;
+  padding: 1rem 1.1rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(15, 15, 17, 0.65);
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.npm-dl:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.npm-dl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.npm-dl-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.npm-dl-live {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--success);
+}
+
+.npm-dl-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.npm-dl-count {
+  font-size: 1.85rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.npm-dl-spark {
+  flex: 0 0 auto;
+  color: var(--fg-muted);
+  opacity: 0.9;
+}
+
+.npm-dl-pkg {
+  display: block;
+  margin-top: 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.01em;
+}
+
+.npm-dl-compact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin-top: 0;
+  padding: 0.45rem 0.7rem;
+  max-width: none;
+}
+
+.npm-dl-compact .npm-dl-count {
+  font-size: 1rem;
+}
+
+.support-list {
+  margin-top: 1.75rem;
+}
+
 @media (min-width: 768px) {
   .hero {
     padding: 5rem 2rem 6rem;

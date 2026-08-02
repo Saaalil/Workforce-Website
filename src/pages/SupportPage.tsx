@@ -1,4 +1,5 @@
 import { Reveal } from "../components/Reveal";
+import { NpmWeeklyDownloads } from "../components/NpmWeeklyDownloads";
 import { PACKAGE } from "../data";
 
 export function SupportPage() {
@@ -12,6 +13,10 @@ export function SupportPage() {
           MCP package or the core repo — issues and PRs welcome on specialty
           packs, orchestration, and docs.
         </p>
+      </Reveal>
+
+      <Reveal delayMs={30}>
+        <NpmWeeklyDownloads />
       </Reveal>
 
       <div className="support-list">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
+import { NpmWeeklyDownloads } from "../components/NpmWeeklyDownloads";
 import { PACKAGE, WHATS_NEW } from "../data";
 
 export function HomePage() {
@@ -16,7 +17,7 @@ export function HomePage() {
         </h1>
         <Reveal delayMs={160}>
           <p className="hero-line">
-            Need specialist work : UI, data, ML, SRE  :- without doing all the
+            Need specialist work — UI, data, ML, SRE — without doing all the
             setup yourself? Install once and get the best context and prompts
             for whatever you’re building.
           </p>
@@ -37,8 +38,11 @@ export function HomePage() {
             <strong>14</strong> specialties
           </span>
           <span>
-            <strong>zero</strong> per-project skill installs
+            <strong>5</strong> pods
           </span>
+        </Reveal>
+        <Reveal delayMs={380}>
+          <NpmWeeklyDownloads />
         </Reveal>
       </section>
 
