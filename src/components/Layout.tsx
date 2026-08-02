@@ -74,7 +74,7 @@ export function Layout() {
           <div className="footer-social">
             <Link to="/support">Support</Link>
             <Link to="/whats-new">What’s new</Link>
-            <span className="footer-by">by Salil</span>
+            <span className="footer-by">by {PACKAGE.author}</span>
             <a
               href="https://github.com/Saaalil/"
               target="_blank"
@@ -83,12 +83,13 @@ export function Layout() {
               GitHub
             </a>
             <a
-              href="https://x.com/HiremathSalil"
+              href={PACKAGE.xUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
               X
             </a>
+            <a href={`mailto:${PACKAGE.email}`}>Email</a>
           </div>
         </footer>
       </div>

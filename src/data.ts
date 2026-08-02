@@ -528,10 +528,14 @@ export const NAV = [
 
 export const PACKAGE = {
   name: "@saaalil/workforce-mcp",
-  version: "1.4.0",
+  version: "1.4.3",
   npmUrl: "https://www.npmjs.com/package/@saaalil/workforce-mcp",
   githubUrl: "https://github.com/Saaalil/Workforce-MCP",
   websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
+  xUrl: "https://x.com/HiremathSalil",
+  xHandle: "@HiremathSalil",
+  email: "salilhiremath2712@gmail.com",
+  author: "Salil Hiremath",
 } as const;
 
 export type ChangelogRelease = {
@@ -543,6 +547,36 @@ export type ChangelogRelease = {
 
 /** Full package history shown on /whats-new */
 export const CHANGELOG: ChangelogRelease[] = [
+  {
+    version: "1.4.3",
+    date: "2026-08-02",
+    title: "Shebang fix + scanner-safe packaging",
+    highlights: [
+      "Fixed double shebang that broke local ESM load of dist/index.js",
+      "MCP SDK kept external; packs/icons embedded (no runtime fs / eval in our file)",
+      "Support contacts on the docs site (X + email)",
+    ],
+  },
+  {
+    version: "1.4.2",
+    date: "2026-08-02",
+    title: "Clear malware-looking package alerts",
+    highlights: [
+      "Stop bundling MCP SDK into our file so AJV new Function is not attributed to Workforce",
+      "Embed specialty packs and icons at build time",
+      "Drop runtime websiteUrl from server metadata",
+    ],
+  },
+  {
+    version: "1.4.1",
+    date: "2026-08-02",
+    title: "Supply-chain hardening",
+    highlights: [
+      "Safe local frontmatter parser (removed gray-matter/js-yaml)",
+      "SECURITY.md trust boundary docs",
+      "Hiring framing removed from product copy",
+    ],
+  },
   {
     version: "1.4.0",
     date: "2026-08-02",

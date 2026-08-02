@@ -1612,6 +1612,34 @@ code,
   max-width: 36rem;
 }
 
+.support-contact-lines {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  margin-top: 0.85rem !important;
+  font-family: var(--mono);
+  font-size: 0.875rem !important;
+  color: var(--fg) !important;
+}
+
+.support-contact-lines a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.support-contact-lines a:hover {
+  color: var(--accent);
+}
+
+.support-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
 .support-snippet {
   margin: 1rem 0 0.85rem;
   padding: 1rem 1.1rem;

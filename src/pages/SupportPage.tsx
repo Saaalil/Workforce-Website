@@ -7,13 +7,47 @@ export function SupportPage() {
     <section className="section section-page">
       <Reveal>
         <p className="section-label">Support</p>
-        <h1 className="section-title">Package, source, contribute</h1>
+        <h1 className="section-title">Stuck? Reach out</h1>
         <p className="section-lead">
-          Workforce is open for use and contribution. Start from the published
-          MCP package or the core repo — issues and PRs welcome on specialty
-          packs, orchestration, and docs.
+          Install hiccups, MCP connection errors, specialty/pod questions — ping
+          Salil directly. GitHub issues are welcome too for packs and docs.
         </p>
       </Reveal>
+
+      <div className="support-list">
+        <Reveal className="support-row support-row-contact" delayMs={20}>
+          <div className="support-meta">
+            <span className="prompt-flag">Contact</span>
+            <h2 className="specialty-name">{PACKAGE.author}</h2>
+            <p>
+              Fastest path when something breaks. DM on X or email — include your
+              Cursor/Claude setup and the error log if you have one.
+            </p>
+            <p className="support-contact-lines">
+              <a href={PACKAGE.xUrl} target="_blank" rel="noopener noreferrer">
+                {PACKAGE.xHandle}
+              </a>
+              <span className="footer-sep" aria-hidden>
+                ·
+              </span>
+              <a href={`mailto:${PACKAGE.email}`}>{PACKAGE.email}</a>
+            </p>
+          </div>
+          <div className="support-contact-actions">
+            <a
+              className="btn btn-primary"
+              href={PACKAGE.xUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Message on X
+            </a>
+            <a className="btn btn-ghost" href={`mailto:${PACKAGE.email}`}>
+              Email Salil
+            </a>
+          </div>
+        </Reveal>
+      </div>
 
       <Reveal delayMs={30}>
         <NpmWeeklyDownloads />
