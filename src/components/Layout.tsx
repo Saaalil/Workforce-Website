@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link, Outlet, useLocation } from "react-router-dom";
 import { Mark, Loader } from "./Brand";
-import { NAV } from "../data";
+import { NAV, PACKAGE } from "../data";
 
 export function Layout() {
   const [booted, setBooted] = useState(false);
@@ -65,7 +65,7 @@ export function Layout() {
 
         <footer className="footer">
           <div className="footer-meta">
-            <span>@saaalil/workforce-mcp · v1.4.0</span>
+            <span>@saaalil/workforce-mcp · v{PACKAGE.version}</span>
             <span className="footer-sep" aria-hidden>
               ·
             </span>

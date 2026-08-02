@@ -534,6 +534,72 @@ export const PACKAGE = {
   websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
 } as const;
 
+export type ChangelogRelease = {
+  version: string;
+  date: string;
+  title: string;
+  highlights: string[];
+};
+
+/** Full package history shown on /whats-new */
+export const CHANGELOG: ChangelogRelease[] = [
+  {
+    version: "1.4.0",
+    date: "2026-08-02",
+    title: "Pods — roster presets",
+    highlights: [
+      "Pods: WEB (UI+FE+BE), DP (DS+DE), AIP (DS+DE+ML+AI), PLAT (OPS+SRE+MON), SHIP (SEC+BE+FE+QA)",
+      "Tools: workforce_pod, workforce_list_pods — member POVs → delegation → one specialty",
+      "Prompts: workforce/WEB, workforce/DP, workforce/AIP, workforce/PLAT, workforce/SHIP",
+      "Specialty workforce/AI kept separate from intelligence pod AIP",
+      "ADR-0001 documents pod contracts; site Specialists + What’s new catalogs pods",
+    ],
+  },
+  {
+    version: "1.3.0",
+    date: "2026-08-01",
+    title: "Manager + discuss + delegate",
+    highlights: [
+      "New specialty MGR — delivery lead: sequence work, don’t craft everything",
+      "workforce_discuss / workforce/discuss — scrum, critique, premortem, war_room, retro, design_review",
+      "postmortem_theater — full cast, one corrective action per specialty",
+      "workforce_delegate / workforce/delegate — ownership plan with order + acceptance",
+      "Prompts: workforce/MGR, workforce/postmortem, workforce/scrum, workforce/plan_work",
+    ],
+  },
+  {
+    version: "1.2.1",
+    date: "2026-08-01",
+    title: "Install path clarity",
+    highlights: [
+      "Docs warn against node ./node_modules MCP paths (MODULE_NOT_FOUND)",
+      "Recommend npx -y @saaalil/workforce-mcp for Cursor / Claude",
+    ],
+  },
+  {
+    version: "1.2.0",
+    date: "2026-08-01",
+    title: "Brand + contractor intake",
+    highlights: [
+      "MCP server brand icons and website URL metadata",
+      "Constitution: investigate → Goal / Blocking questions / Assumptions / Plan → stop",
+      "All specialty briefs framed for production-grade contractor intake",
+    ],
+  },
+  {
+    version: "1.0.0 → 1.1.x",
+    date: "2026-07 / 2026-08",
+    title: "Initial specialist MCP",
+    highlights: [
+      "First public package: specialist context packs (not a hiring tool)",
+      "13 craft specialties: ARCH, UI, FE, BE, DE, DS, ML, AI, OPS, SRE, MON, SEC, QA",
+      "Tools: workforce_as / specialize, list_roles, consult, handoff",
+      "Slash prompts workforce/FLAG + aliases; short-flag resolution",
+      "Role packs: stack defaults, quality bars, anti-patterns, discovery questions",
+    ],
+  },
+];
+
 export type WhatsNewItem = {
   flag: string;
   title: string;

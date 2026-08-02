@@ -1410,6 +1410,51 @@ code,
   margin-bottom: 0;
 }
 
+.changelog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.75rem 0 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.changelog-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.changelog-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.changelog-date {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.02em;
+}
+
+.changelog-bullets {
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--fg-muted);
+  font-size: 0.925rem;
+  max-width: 44rem;
+  line-height: 1.55;
+}
+
+.changelog-bullets li {
+  margin-bottom: 0.4rem;
+}
+
+.changelog-bullets li::marker {
+  color: var(--fg-dim);
+}
+
 .orch-flow {
   margin: 2rem 0 2.5rem;
 }

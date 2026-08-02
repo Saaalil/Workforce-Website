@@ -1,26 +1,39 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
-import { PACKAGE, PODS_CATALOG, WHATS_NEW } from "../data";
+import { CHANGELOG, PACKAGE, PODS_CATALOG, WHATS_NEW } from "../data";
 
 export function WhatsNewPage() {
   return (
     <section className="section section-page section-wide">
       <Reveal>
-        <p className="section-label">v{PACKAGE.version}</p>
-        <h1 className="section-title">Pods + orchestration</h1>
+        <p className="section-label">v{PACKAGE.version} · latest</p>
+        <h1 className="section-title">What’s new</h1>
         <p className="section-lead">
-          Call a <strong>pod</strong> for a fixed craft band — WEB, DP, AIP —
-          then still execute <span className="mono">one</span> specialty. Plus
-          Manager, discuss, and postmortem theater. Live on{" "}
-          <span className="mono">npx -y {PACKAGE.name}</span>.
+          <strong>Pods</strong> are the headline in {PACKAGE.version} — call{" "}
+          <span className="mono">workforce/WEB</span> for UI+FE+BE (roster
+          preset, then one specialty). Plus Manager, discuss, and postmortem
+          from 1.3. Live on{" "}
+          <span className="mono">npx -y {PACKAGE.name}@{PACKAGE.version}</span>.
         </p>
       </Reveal>
 
       <Reveal>
-        <p className="section-label">Pods</p>
-        <h2 className="use-title">Roster presets — not mega-skills</h2>
+        <p className="section-label">What is workforce/WEB?</p>
+        <h2 className="use-title">A pod — not a specialty</h2>
         <p className="section-lead use-lead">
-          Member POVs → delegation table → first{" "}
+          <span className="mono">workforce/WEB</span> loads the{" "}
+          <strong>Web product pod</strong>: member voices UI · FE · BE, a
+          delegation table, then you execute <em>one</em> flag (usually{" "}
+          <span className="mono">workforce/UI</span> first). It is not “be
+          frontend forever” and not a merged mega-prompt.
+        </p>
+      </Reveal>
+
+      <Reveal>
+        <p className="section-label">v{PACKAGE.version}</p>
+        <h2 className="use-title">Pods — roster presets</h2>
+        <p className="section-lead use-lead">
+          Member POVs → delegation → first{" "}
           <span className="mono">workforce/FLAG</span>. Specialty{" "}
           <span className="mono">AI</span> ≠ pod{" "}
           <span className="mono">AIP</span>.
@@ -77,12 +90,12 @@ export function WhatsNewPage() {
       </div>
 
       <Reveal>
-        <p className="section-label">Also in recent releases</p>
+        <p className="section-label">Also shipping with recent releases</p>
         <h2 className="use-title">Manager · discuss · postmortem</h2>
       </Reveal>
 
       <div className="whats-list">
-        {WHATS_NEW.map((item, i) => (
+        {WHATS_NEW.filter((item) => item.flag !== "WEB").map((item, i) => (
           <Reveal
             key={item.flag}
             className="whats-item"
@@ -97,6 +110,36 @@ export function WhatsNewPage() {
               <span className="mono">When:</span> {item.when}
             </p>
             <code className="call-chip">{item.call}</code>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal>
+        <p className="section-label">Changelog</p>
+        <h2 className="use-title">From 1.0 to {PACKAGE.version}</h2>
+        <p className="section-lead use-lead">
+          Everything added across published releases of{" "}
+          <span className="mono">{PACKAGE.name}</span>.
+        </p>
+      </Reveal>
+
+      <div className="changelog-list">
+        {CHANGELOG.map((rel, i) => (
+          <Reveal
+            key={rel.version}
+            className="changelog-item"
+            delayMs={Math.min(i * 40, 160)}
+          >
+            <div className="changelog-head">
+              <span className="prompt-flag">v{rel.version}</span>
+              <span className="changelog-date">{rel.date}</span>
+            </div>
+            <h3 className="specialty-name">{rel.title}</h3>
+            <ul className="changelog-bullets">
+              {rel.highlights.map((h) => (
+                <li key={h}>{h}</li>
+              ))}
+            </ul>
           </Reveal>
         ))}
       </div>

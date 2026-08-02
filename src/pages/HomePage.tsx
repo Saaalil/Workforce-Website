@@ -49,8 +49,9 @@ export function HomePage() {
             What’s new
           </h2>
           <p className="section-lead">
-            Orchestration for the roster — Manager, discuss, postmortem theater,
-            and delegate. Same dark theme, same short flags.
+            v{PACKAGE.version}: pods like{" "}
+            <span className="mono">workforce/WEB</span>, plus Manager, discuss,
+            and postmortem theater. Same dark theme, same short flags.
           </p>
         </Reveal>
 

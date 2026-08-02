@@ -21,8 +21,8 @@ export function SupportPage() {
             <h2 className="specialty-name">{PACKAGE.name}</h2>
             <p>
               Install with npx in Cursor or Claude. Current release{" "}
-              <span className="mono">v{PACKAGE.version}</span> — Manager,
-              discuss, postmortem theater, delegate.
+              <span className="mono">v{PACKAGE.version}</span> — pods (WEB/DP/AIP),
+              Manager, discuss, postmortem, delegate.
             </p>
           </div>
           <a
