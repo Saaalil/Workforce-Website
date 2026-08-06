@@ -53,9 +53,10 @@ export function HomePage() {
             What’s new
           </h2>
           <p className="section-lead">
-            <strong>Now available in Antigravity as well!</strong> Plus pods
-            like <span className="mono">workforce/WEB</span>, Manager, discuss,
-            and postmortem theater. Same short flags everywhere.
+            <strong>End-to-end finished product:</strong> themed photos and
+            assets from the web by default — not placeholders. Also{" "}
+            <strong>available in Antigravity</strong>, with pods like{" "}
+            <span className="mono">workforce/WEB</span>.
           </p>
         </Reveal>
 

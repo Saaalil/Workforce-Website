@@ -476,7 +476,7 @@ export const ANTIGRAVITY_CONFIG = `{
   "mcpServers": {
     "workforce": {
       "command": "npx",
-      "args": ["-y", "@saaalil/workforce-mcp@1.4.3"]
+      "args": ["-y", "@saaalil/workforce-mcp@1.4.4"]
     }
   }
 }`;
@@ -491,7 +491,7 @@ export const ANTIGRAVITY_GUIDE: GuideStep[] = [
   },
   {
     title: "Paste the Workforce server",
-    body: "Add the workforce entry under mcpServers (stdio via npx). Use @1.4.3 or later — older 1.4.1 builds had a shebang bug that crashed npx.",
+    body: "Add the workforce entry under mcpServers (stdio via npx). Use @1.4.4 or later — older 1.4.1 builds had a shebang bug that crashed npx.",
   },
   {
     title: "Save and refresh",
@@ -564,7 +564,7 @@ export const NAV = [
 
 export const PACKAGE = {
   name: "@saaalil/workforce-mcp",
-  version: "1.4.3",
+  version: "1.4.4",
   npmUrl: "https://www.npmjs.com/package/@saaalil/workforce-mcp",
   githubUrl: "https://github.com/Saaalil/Workforce-MCP",
   websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
@@ -583,6 +583,16 @@ export type ChangelogRelease = {
 
 /** Full package history shown on /whats-new */
 export const CHANGELOG: ChangelogRelease[] = [
+  {
+    version: "1.4.4",
+    date: "2026-08-06",
+    title: "End-to-end finished product context",
+    highlights: [
+      "Constitution: ship the full user-visible thing — real copy + themed photos/assets from the web by default (license-clear sources)",
+      "No more gray-box / lorem demos unless the user asked for a stub",
+      "FE + UI packs: hard bars against placeholder media; prefer Unsplash/Pexels/Wikimedia/Openverse or user assets",
+    ],
+  },
   {
     version: "1.4.3",
     date: "2026-08-06",
@@ -682,6 +692,13 @@ export type WhatsNewItem = {
 /** Featured on home + /whats-new */
 export const WHATS_NEW: WhatsNewItem[] = [
   {
+    flag: "E2E",
+    title: "End-to-end finished product",
+    body: "Every specialty brief now expects the full deliverable: real copy, themed photos/assets from license-clear web sources by default — not lorem and gray boxes. Example: a Suits-themed site pulls courtroom/legal atmosphere imagery and polish, not placeholders.",
+    call: "Constitution",
+    when: "Any user-visible build (sites, apps, landing pages)",
+  },
+  {
     flag: "AGY",
     title: "Now available in Antigravity as well!",
     body: "Google Antigravity IDE & CLI: add Workforce to mcp_config.json via npx (v1.4.3+). Same pods and specialties — workforce/WEB, discuss, MGR — now beside Cursor and Claude.",
@@ -701,13 +718,6 @@ export const WHATS_NEW: WhatsNewItem[] = [
     body: "Delegate slices across the roster, sequence handoffs, and keep one specialty executing at a time — a delivery lead for your agent.",
     call: "workforce/MGR",
     when: "Who should own what before craft work starts",
-  },
-  {
-    flag: "discuss",
-    title: "Multi-specialty discuss",
-    body: "Scrum, critique, premortem, war room, retro, design review, or postmortem theater — challenges from each craft POV, then a recommended sequence.",
-    call: "workforce/discuss",
-    when: "Cross-cutting ideas that need every specialty’s objections",
   },
 ];
 

@@ -9,9 +9,11 @@ export function WhatsNewPage() {
         <p className="section-label">v{PACKAGE.version} · latest</p>
         <h1 className="section-title">What’s new</h1>
         <p className="section-lead">
-          <strong>Now available in Antigravity as well!</strong> Same MCP —
-          pods like <span className="mono">workforce/WEB</span>, Manager,
-          discuss — in Google Antigravity, Cursor, and Claude. Live on{" "}
+          <strong>End-to-end finished product</strong> context in v
+          {PACKAGE.version}: real copy + themed web assets by default. Still{" "}
+          <strong>available in Antigravity</strong>, Cursor, and Claude — pods
+          like <span className="mono">workforce/WEB</span>, Manager, discuss.
+          Live on{" "}
           <span className="mono">npx -y {PACKAGE.name}@{PACKAGE.version}</span>.
         </p>
       </Reveal>
@@ -25,9 +27,9 @@ export function WhatsNewPage() {
           <Link className="inline-link" to="/install">
             Install
           </Link>{" "}
-          for the Antigravity tab and copy-paste config. Require{" "}
-          <span className="mono">@{PACKAGE.version}</span>+ (fixes the old
-          shebang crash on 1.4.1).
+          for the Antigravity tab and copy-paste config. Prefer{" "}
+          <span className="mono">@1.4.3</span>+ (fixes the old shebang crash on
+          1.4.1); latest is <span className="mono">@{PACKAGE.version}</span>.
         </p>
       </Reveal>
 
