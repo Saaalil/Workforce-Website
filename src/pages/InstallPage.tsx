@@ -13,6 +13,7 @@ import {
   NPM_INSTALL_CMD,
   NPM_INSTALL_CONFIG,
   ORCHESTRATION_PROMPTS,
+  PACKAGE,
   PROMPT_GROUPS,
   TOOLS,
   USAGE_PROMPTS,
@@ -98,11 +99,13 @@ export function InstallPage() {
             rel="noopener noreferrer"
           >
             @saaalil/workforce-mcp
-          </a>
-          . Works in <strong>Cursor</strong>, <strong>Claude</strong>, and{" "}
+          </a>{" "}
+          <span className="mono">v{PACKAGE.version}</span>. Works in{" "}
+          <strong>Cursor</strong>, <strong>Claude</strong>, and{" "}
           <strong>Google Antigravity</strong>. Prefer{" "}
           <span className="mono">npx</span> — use{" "}
-          <span className="mono">@1.4.3</span>+ (fixes the old shebang crash).
+          <span className="mono">@1.4.4</span>+ for end-to-end finished-product
+          context (real themed assets by default) and the shebang fix.
         </p>
       </Reveal>
 

@@ -19,6 +19,20 @@ export function WhatsNewPage() {
       </Reveal>
 
       <Reveal>
+        <p className="section-label">v{PACKAGE.version}</p>
+        <h2 className="use-title">End-to-end finished product</h2>
+        <p className="section-lead use-lead">
+          Specialty briefs now assume you want a <strong>demo-ready</strong>{" "}
+          deliverable — not a scaffold. Agents pull{" "}
+          <strong>themed photos and assets from license-clear web sources</strong>{" "}
+          (Unsplash, Pexels, Wikimedia, Openverse) by default, write real copy,
+          and wire images properly. Gray boxes and lorem only if you asked for a
+          stub. Example: a Suits-themed site gets courtroom/legal atmosphere
+          imagery and polish, not placeholders.
+        </p>
+      </Reveal>
+
+      <Reveal>
         <p className="section-label">Hosts</p>
         <h2 className="use-title">Cursor · Claude · Antigravity</h2>
         <p className="section-lead use-lead">
