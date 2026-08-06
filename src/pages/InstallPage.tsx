@@ -6,6 +6,9 @@ import {
   CLAUDE_MCP_JSON,
   CURSOR_CONFIG,
   CURSOR_GUIDE,
+  ANTIGRAVITY_CONFIG,
+  ANTIGRAVITY_CONFIG_PATHS,
+  ANTIGRAVITY_GUIDE,
   LOCAL_CONFIG,
   NPM_INSTALL_CMD,
   NPM_INSTALL_CONFIG,
@@ -44,7 +47,9 @@ function useCopy() {
 }
 
 export function InstallPage() {
-  const [host, setHost] = useState<"cursor" | "claude">("cursor");
+  const [host, setHost] = useState<"cursor" | "claude" | "antigravity">(
+    "cursor"
+  );
   const [configTab, setConfigTab] = useState<"npx" | "npm" | "local">("npx");
   const [cliTab, setCliTab] = useState<"unix" | "win" | "json">("unix");
   const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
@@ -94,11 +99,10 @@ export function InstallPage() {
           >
             @saaalil/workforce-mcp
           </a>
-          . For Cursor, prefer{" "}
-          <span className="mono">npx</span> in MCP settings —{" "}
-          <span className="mono">npm i</span> is different (installs into a
-          project, then point MCP at{" "}
-          <span className="mono">node_modules</span>).
+          . Works in <strong>Cursor</strong>, <strong>Claude</strong>, and{" "}
+          <strong>Google Antigravity</strong>. Prefer{" "}
+          <span className="mono">npx</span> — use{" "}
+          <span className="mono">@1.4.3</span>+ (fixes the old shebang crash).
         </p>
       </Reveal>
 
@@ -132,6 +136,18 @@ export function InstallPage() {
               onClick={() => setHost("claude")}
             >
               Claude Code / CLI
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id={`${hostId}-antigravity`}
+              aria-selected={host === "antigravity"}
+              aria-controls={`${hostId}-panel`}
+              tabIndex={host === "antigravity" ? 0 : -1}
+              className={`install-tab${host === "antigravity" ? " is-active" : ""}`}
+              onClick={() => setHost("antigravity")}
+            >
+              Antigravity
             </button>
           </div>
 
@@ -256,6 +272,54 @@ export function InstallPage() {
                       {errorKey === "ide"
                         ? "copy failed"
                         : copiedKey === "ide"
+                          ? "copied"
+                          : "copy"}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : host === "antigravity" ? (
+              <>
+                <p className="guide-intro">
+                  <strong>Now available in Antigravity as well!</strong> Google
+                  Antigravity IDE / CLI use{" "}
+                  <span className="mono">mcp_config.json</span> (
+                  {ANTIGRAVITY_CONFIG_PATHS}). Same Workforce tools and prompts
+                  as Cursor.
+                </p>
+                <ol className="guide-steps">
+                  {ANTIGRAVITY_GUIDE.map((step, i) => (
+                    <li key={step.title} className="guide-step">
+                      <span className="guide-n">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3>{step.title}</h3>
+                        <p>{step.body}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+
+                <p className="guide-snippet-label">mcp_config.json</p>
+                <div className="install">
+                  <div className="install-body" role="tabpanel">
+                    <pre
+                      className="code-fade"
+                      dangerouslySetInnerHTML={{
+                        __html: highlightJson(ANTIGRAVITY_CONFIG),
+                      }}
+                    />
+                  </div>
+                  <div className="copy-row">
+                    <button
+                      type="button"
+                      className={`copy-btn${copiedKey === "agy" ? " is-success" : ""}${errorKey === "agy" ? " is-error" : ""}`}
+                      onClick={() => copy("agy", ANTIGRAVITY_CONFIG)}
+                    >
+                      {errorKey === "agy"
+                        ? "copy failed"
+                        : copiedKey === "agy"
                           ? "copied"
                           : "copy"}
                     </button>

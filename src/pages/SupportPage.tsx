@@ -9,8 +9,9 @@ export function SupportPage() {
         <p className="section-label">Support</p>
         <h1 className="section-title">Stuck? Reach out</h1>
         <p className="section-lead">
-          Install hiccups, MCP connection errors, specialty/pod questions — ping
-          Salil directly. GitHub issues are welcome too for packs and docs.
+          Install hiccups, MCP connection errors, specialty/pod questions — or
+          Antigravity setup — ping Salil directly. GitHub issues are welcome
+          too for packs and docs.
         </p>
       </Reveal>
 

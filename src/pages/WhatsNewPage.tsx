@@ -9,11 +9,25 @@ export function WhatsNewPage() {
         <p className="section-label">v{PACKAGE.version} · latest</p>
         <h1 className="section-title">What’s new</h1>
         <p className="section-lead">
-          <strong>Pods</strong> are the headline in {PACKAGE.version} — call{" "}
-          <span className="mono">workforce/WEB</span> for UI+FE+BE (roster
-          preset, then one specialty). Plus Manager, discuss, and postmortem
-          from 1.3. Live on{" "}
+          <strong>Now available in Antigravity as well!</strong> Same MCP —
+          pods like <span className="mono">workforce/WEB</span>, Manager,
+          discuss — in Google Antigravity, Cursor, and Claude. Live on{" "}
           <span className="mono">npx -y {PACKAGE.name}@{PACKAGE.version}</span>.
+        </p>
+      </Reveal>
+
+      <Reveal>
+        <p className="section-label">Hosts</p>
+        <h2 className="use-title">Cursor · Claude · Antigravity</h2>
+        <p className="section-lead use-lead">
+          Antigravity uses{" "}
+          <span className="mono">mcp_config.json</span> (stdio + npx). Open{" "}
+          <Link className="inline-link" to="/install">
+            Install
+          </Link>{" "}
+          for the Antigravity tab and copy-paste config. Require{" "}
+          <span className="mono">@{PACKAGE.version}</span>+ (fixes the old
+          shebang crash on 1.4.1).
         </p>
       </Reveal>
 

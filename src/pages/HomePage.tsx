@@ -53,9 +53,9 @@ export function HomePage() {
             What’s new
           </h2>
           <p className="section-lead">
-            v{PACKAGE.version}: pods like{" "}
-            <span className="mono">workforce/WEB</span>, plus Manager, discuss,
-            and postmortem theater. Same dark theme, same short flags.
+            <strong>Now available in Antigravity as well!</strong> Plus pods
+            like <span className="mono">workforce/WEB</span>, Manager, discuss,
+            and postmortem theater. Same short flags everywhere.
           </p>
         </Reveal>
 

@@ -471,6 +471,42 @@ export type GuideStep = {
   body: string;
 };
 
+/** Google Antigravity — ~/.gemini/config/mcp_config.json or .agents/mcp_config.json */
+export const ANTIGRAVITY_CONFIG = `{
+  "mcpServers": {
+    "workforce": {
+      "command": "npx",
+      "args": ["-y", "@saaalil/workforce-mcp@1.4.3"]
+    }
+  }
+}`;
+
+export const ANTIGRAVITY_CONFIG_PATHS =
+  "Global: ~/.gemini/config/mcp_config.json · Workspace: .agents/mcp_config.json";
+
+export const ANTIGRAVITY_GUIDE: GuideStep[] = [
+  {
+    title: "Open MCP Servers",
+    body: "In Antigravity IDE: … on the agent panel → MCP Servers → Manage MCP Servers → View raw config. Or edit mcp_config.json directly.",
+  },
+  {
+    title: "Paste the Workforce server",
+    body: "Add the workforce entry under mcpServers (stdio via npx). Use @1.4.3 or later — older 1.4.1 builds had a shebang bug that crashed npx.",
+  },
+  {
+    title: "Save and refresh",
+    body: "Save mcp_config.json, hit Refresh in Manage MCP Servers (or restart the agent session) until workforce shows connected.",
+  },
+  {
+    title: "Optional — allow tools",
+    body: "In MCP Tools permissions, add mcp(workforce/*) with Allow if you don’t want to approve every Workforce tool call.",
+  },
+  {
+    title: "Call a specialty or pod",
+    body: "Same prompts as Cursor: workforce/WEB, workforce/DE, workforce/MGR, workforce/discuss, …",
+  },
+];
+
 export const CURSOR_GUIDE: GuideStep[] = [
   {
     title: "Open MCP settings",
@@ -549,12 +585,13 @@ export type ChangelogRelease = {
 export const CHANGELOG: ChangelogRelease[] = [
   {
     version: "1.4.3",
-    date: "2026-08-02",
-    title: "Shebang fix + scanner-safe packaging",
+    date: "2026-08-06",
+    title: "Now available in Antigravity as well!",
     highlights: [
-      "Fixed double shebang that broke local ESM load of dist/index.js",
-      "MCP SDK kept external; packs/icons embedded (no runtime fs / eval in our file)",
-      "Support contacts on the docs site (X + email)",
+      "Works in Google Antigravity IDE / CLI via mcp_config.json (stdio + npx) — same specialties and pods as Cursor",
+      "Fixed double shebang that crashed npx on 1.4.1 (use @1.4.3 or later)",
+      "Install docs: Antigravity tab with copy-paste config + MCP Tools Allow tip (mcp(workforce/*))",
+      "MCP SDK kept external; packs/icons embedded (scanner-safe package surface)",
     ],
   },
   {
@@ -645,6 +682,13 @@ export type WhatsNewItem = {
 /** Featured on home + /whats-new */
 export const WHATS_NEW: WhatsNewItem[] = [
   {
+    flag: "AGY",
+    title: "Now available in Antigravity as well!",
+    body: "Google Antigravity IDE & CLI: add Workforce to mcp_config.json via npx (v1.4.3+). Same pods and specialties — workforce/WEB, discuss, MGR — now beside Cursor and Claude.",
+    call: "Antigravity",
+    when: "You’re on Antigravity and want specialist context in the agent",
+  },
+  {
     flag: "WEB",
     title: "Pods — roster presets",
     body: "Call workforce/WEB (UI+FE+BE), DP (DE+DS), AIP (AI+ML+DS+DE), PLAT, or SHIP. Member POVs → delegation → one specialty. Not a mega-skill dump. Specialty AI ≠ pod AIP.",
@@ -654,7 +698,7 @@ export const WHATS_NEW: WhatsNewItem[] = [
   {
     flag: "MGR",
     title: "Manager specialty",
-    body: "Delegate slices across the roster, sequence handoffs, and keep one specialty executing at a time — not a hiring tool, a delivery lead for your agent.",
+    body: "Delegate slices across the roster, sequence handoffs, and keep one specialty executing at a time — a delivery lead for your agent.",
     call: "workforce/MGR",
     when: "Who should own what before craft work starts",
   },
@@ -664,13 +708,6 @@ export const WHATS_NEW: WhatsNewItem[] = [
     body: "Scrum, critique, premortem, war room, retro, design review, or postmortem theater — challenges from each craft POV, then a recommended sequence.",
     call: "workforce/discuss",
     when: "Cross-cutting ideas that need every specialty’s objections",
-  },
-  {
-    flag: "postmortem",
-    title: "Postmortem theater",
-    body: "Full cast on stage after a failure. Every specialty owns exactly one corrective action — blameless on people, ruthless on systems.",
-    call: "workforce/postmortem",
-    when: "After an incident or a deploy that hurt users",
   },
 ];
 
