@@ -1732,12 +1732,21 @@ code,
   align-items: center;
   gap: 0.55rem;
   flex-shrink: 0;
-  padding: 0.55rem 1rem 0.55rem 0.75rem;
+  padding: 0.55rem 1rem 0.55rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--bg-elevated);
   color: var(--fg-muted);
   white-space: nowrap;
+}
+
+.host-logo {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .host-mark {
