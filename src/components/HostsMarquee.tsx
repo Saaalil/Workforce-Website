@@ -4,6 +4,7 @@ import openCodeLogo from "../assets/hosts/opencode-logo.svg";
 import commandCodeLogo from "../assets/hosts/commandcode-icon.png";
 import metaLogo from "../assets/hosts/meta-icon.png";
 import claudeLogo from "../assets/hosts/claude-icon.png";
+import openAiLogo from "../assets/hosts/openai-icon.png";
 import antigravityLogo from "../assets/hosts/antigravity.png";
 
 type HostItem = {
@@ -18,6 +19,7 @@ const HOSTS: HostItem[] = [
   { id: "commandcode", name: "Command Code", src: commandCodeLogo },
   { id: "metacode", name: "Meta Code", src: metaLogo },
   { id: "claudecode", name: "Claude Code", src: claudeLogo },
+  { id: "codex", name: "Codex", src: openAiLogo },
   { id: "antigravity", name: "Antigravity", src: antigravityLogo },
 ];
 
@@ -28,8 +30,8 @@ function HostChip({ host }: { host: HostItem }): ReactElement {
         className="host-logo"
         src={host.src}
         alt=""
-        width={20}
-        height={20}
+        width={28}
+        height={28}
         decoding="async"
         draggable={false}
       />
