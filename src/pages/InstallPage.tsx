@@ -19,6 +19,7 @@ import {
   USAGE_PROMPTS,
 } from "../data";
 import { Reveal } from "../components/Reveal";
+import { HostsMarquee } from "../components/HostsMarquee";
 
 function highlightJson(src: string) {
   return src
@@ -107,6 +108,10 @@ export function InstallPage() {
           <span className="mono">@1.4.4</span>+ for end-to-end finished-product
           context (real themed assets by default) and the shebang fix.
         </p>
+      </Reveal>
+
+      <Reveal delayMs={40}>
+        <HostsMarquee label="Harnesses & IDEs" />
       </Reveal>
 
       <Reveal>

@@ -1678,6 +1678,92 @@ code,
   will-change: auto;
 }
 
+/* ——— Hosts marquee ——— */
+.hosts-marquee {
+  margin: 1.75rem 0 0.5rem;
+  width: 100%;
+}
+
+.hero .hosts-marquee {
+  margin: 1.35rem 0 0.25rem;
+}
+
+.hosts-marquee-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.hosts-marquee-viewport {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.hosts-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.65rem;
+  animation: hostsMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.hosts-marquee:hover .hosts-marquee-track {
+  animation-play-state: paused;
+}
+
+.host-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  padding: 0.55rem 1rem 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.host-mark {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: block;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.host-chip-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+@keyframes hostsMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1695,6 +1781,20 @@ code,
   .code-fade {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .hosts-marquee-track {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    row-gap: 0.55rem;
+    transform: none !important;
+  }
+
+  .hosts-marquee-viewport {
+    mask-image: none;
+    -webkit-mask-image: none;
+    overflow: visible;
   }
 
   .loader {

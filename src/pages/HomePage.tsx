@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { NpmWeeklyDownloads } from "../components/NpmWeeklyDownloads";
+import { HostsMarquee } from "../components/HostsMarquee";
 import { PACKAGE, WHATS_NEW } from "../data";
 
 export function HomePage() {
@@ -41,7 +42,10 @@ export function HomePage() {
             <strong>5</strong> pods
           </span>
         </Reveal>
-        <Reveal delayMs={380}>
+        <Reveal delayMs={360}>
+          <HostsMarquee label="Works across" />
+        </Reveal>
+        <Reveal delayMs={400}>
           <NpmWeeklyDownloads />
         </Reveal>
       </section>
