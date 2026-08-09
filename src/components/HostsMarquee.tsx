@@ -6,6 +6,9 @@ import museLogo from "../assets/hosts/meta-icon.png";
 import claudeLogo from "../assets/hosts/claude-icon.png";
 import openAiLogo from "../assets/hosts/openai-icon.png";
 import antigravityLogo from "../assets/hosts/antigravity.png";
+import rooCodeLogo from "../assets/hosts/Roo Code logo.png";
+import gooseLogo from "../assets/hosts/Goos elogo.png";
+import crushLogo from "../assets/hosts/Crush logo.png";
 
 type HostItem = {
   id: string;
@@ -25,19 +28,19 @@ const HOSTS: HostItem[] = [
   { id: "hermes", name: "Hermes Agent", src: "https://hermes-agent.nousresearch.com/favicon.ico" },
   { id: "gemini", name: "Gemini CLI", src: "https://cdn.simpleicons.org/googlegemini" },
   { id: "cline", name: "Cline", src: "https://cdn.simpleicons.org/cline" },
-  { id: "roo", name: "Roo Code", src: "https://roocode.com/favicon.ico" },
+  { id: "roo", name: "Roo Code", src: rooCodeLogo },
   { id: "windsurf", name: "Windsurf", src: "https://codeium.com/favicon.ico" },
   { id: "copilot", name: "GitHub Copilot", src: "https://github.com/favicon.ico" },
   { id: "vscode", name: "VS Code", src: "https://code.visualstudio.com/favicon.ico" },
   { id: "kiro", name: "Kiro", src: "https://kiro.dev/favicon.ico" },
-  { id: "goose", name: "Goose", src: "https://raw.githubusercontent.com/aaif-goose/goose/main/ui/desktop/src/images/glyph.svg" },
+  { id: "goose", name: "Goose", src: gooseLogo },
   { id: "zed", name: "Zed", src: "https://cdn.simpleicons.org/zedindustries" },
   { id: "continue", name: "Continue", src: "https://raw.githubusercontent.com/continuedev/continue/main/docs-site/public/images/continue-logo-light.png" },
   { id: "amazonq", name: "Amazon Q", src: "https://aws.amazon.com/favicon.ico" },
   { id: "jetbrains", name: "JetBrains AI", src: "https://www.jetbrains.com/favicon.ico" },
   { id: "amp", name: "Amp", src: "https://ampcode.com/favicon.ico" },
   { id: "factory", name: "Factory Droid", src: "https://factory.ai/favicon.ico" },
-  { id: "crush", name: "Crush", src: "https://charm.land/favicon.ico" },
+  { id: "crush", name: "Crush", src: crushLogo },
 ];
 
 function HostChip({ host }: { host: HostItem }): ReactElement {
