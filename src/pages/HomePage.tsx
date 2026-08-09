@@ -33,6 +33,9 @@ export function HomePage() {
         </Reveal>
         <Reveal className="hero-meta" delayMs={320}>
           <span>
+            <strong>1k</strong> users
+          </span>
+          <span>
             <strong>one</strong> package
           </span>
           <span>
