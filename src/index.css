@@ -1720,7 +1720,7 @@ code,
   display: flex;
   width: max-content;
   gap: 0.85rem;
-  animation: hostsMarquee 42s linear infinite;
+  animation: hostsMarquee 105s linear infinite;
   will-change: transform;
 }
 

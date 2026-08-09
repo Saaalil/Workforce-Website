@@ -46,7 +46,7 @@ export function HomePage() {
           </span>
         </Reveal>
         <Reveal delayMs={360}>
-          <HostsMarquee label="Works across" />
+          <HostsMarquee label="Works across MCP clients" />
         </Reveal>
         <Reveal delayMs={400}>
           <NpmWeeklyDownloads />

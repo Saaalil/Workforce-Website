@@ -111,7 +111,7 @@ export function InstallPage() {
       </Reveal>
 
       <Reveal delayMs={40}>
-        <HostsMarquee label="Harnesses & IDEs" />
+        <HostsMarquee label="MCP-compatible harnesses & IDEs" />
       </Reveal>
 
       <Reveal>
