@@ -69,7 +69,7 @@ export function Layout() {
             <span className="footer-sep" aria-hidden>
               ·
             </span>
-            <span>install once · specialist context on demand</span>
+            <span>shared team memory · ownership · proof of delivery</span>
           </div>
           <div className="footer-social">
             <Link to="/support">Support</Link>

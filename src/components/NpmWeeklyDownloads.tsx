@@ -1,29 +1,55 @@
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 import { PACKAGE } from "../data";
 
-/** Hardcoded social proof — keep in sync everywhere this number is shown. */
-export const USERS_COUNT_LABEL = "1k";
-export const USERS_COUNT_FULL = "1,000";
-
-/** Synthetic upward trend for the sparkline (not live npm data). */
-const UPWARD_SERIES = [12, 18, 16, 24, 28, 35, 42, 48, 55, 68, 72, 88];
-
-function sparklinePath(values: number[], w: number, h: number): string {
-  if (values.length < 2) return "";
-  const max = Math.max(...values, 1);
-  const step = w / (values.length - 1);
-  return values
-    .map((v, i) => {
-      const x = i * step;
-      const y = h - (v / max) * (h - 4) - 2;
-      return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
-    })
-    .join(" ");
-}
-
+/**
+ * Honest npm weekly downloads only — no fabricated user counts or synthetic charts.
+ */
 export function NpmWeeklyDownloads({ compact = false }: { compact?: boolean }) {
-  const gid = useId().replace(/:/g, "");
-  const path = sparklinePath(UPWARD_SERIES, 120, 36);
+  const [count, setCount] = useState<number | null>(null);
+  const [status, setStatus] = useState<"loading" | "ok" | "failed">("loading");
+  const labelId = useId();
+
+  useEffect(() => {
+    let cancelled = false;
+    const url = `https://api.npmjs.org/downloads/point/last-week/${encodeURIComponent(PACKAGE.name)}`;
+    fetch(url)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("npm"))))
+      .then((data: { downloads?: number }) => {
+        if (cancelled) return;
+        if (typeof data.downloads === "number") {
+          setCount(data.downloads);
+          setStatus("ok");
+        } else {
+          setStatus("failed");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setStatus("failed");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (status === "loading") {
+    return (
+      <div className="npm-dl npm-dl-early" id={labelId} aria-busy="true">
+        <span className="npm-dl-label">npm downloads / week</span>
+        <strong className="npm-dl-count">…</strong>
+      </div>
+    );
+  }
+
+  if (status === "failed" || count === null) {
+    return (
+      <a className="npm-dl npm-dl-early" href="/design-partners" id={labelId}>
+        <span className="npm-dl-label">Status</span>
+        <strong className="npm-dl-count">Early access</strong>
+      </a>
+    );
+  }
+
+  const formatted = count.toLocaleString("en-US");
 
   if (compact) {
     return (
@@ -32,13 +58,10 @@ export function NpmWeeklyDownloads({ compact = false }: { compact?: boolean }) {
         href={PACKAGE.npmUrl}
         target="_blank"
         rel="noopener noreferrer"
-        title={`${USERS_COUNT_FULL} users`}
+        title={`${formatted} npm downloads last week`}
       >
-        <span className="npm-dl-label">users</span>
-        <strong className="npm-dl-count">{USERS_COUNT_LABEL}</strong>
-        <span className="npm-dl-live" aria-hidden>
-          live
-        </span>
+        <span className="npm-dl-label">npm / wk</span>
+        <strong className="npm-dl-count">{formatted}</strong>
       </a>
     );
   }
@@ -49,44 +72,15 @@ export function NpmWeeklyDownloads({ compact = false }: { compact?: boolean }) {
       href={PACKAGE.npmUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${USERS_COUNT_FULL} users`}
+      aria-label={`${formatted} npm package downloads last week`}
     >
       <div className="npm-dl-top">
-        <span className="npm-dl-label">Users</span>
-        <span className="npm-dl-live" aria-hidden>
-          live
-        </span>
+        <span className="npm-dl-label">npm downloads / week</span>
       </div>
       <div className="npm-dl-row">
-        <strong className="npm-dl-count">{USERS_COUNT_LABEL}</strong>
-        <svg
-          className="npm-dl-spark"
-          viewBox="0 0 120 36"
-          width="120"
-          height="36"
-          aria-hidden
-        >
-          <defs>
-            <linearGradient id={`npm-grad-${gid}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(243,241,238,0.35)" />
-              <stop offset="100%" stopColor="rgba(243,241,238,0)" />
-            </linearGradient>
-          </defs>
-          <path
-            d={`${path} L120 36 L0 36 Z`}
-            fill={`url(#npm-grad-${gid})`}
-          />
-          <path
-            d={path}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-        </svg>
+        <strong className="npm-dl-count">{formatted}</strong>
       </div>
-      <span className="npm-dl-pkg">{PACKAGE.name}</span>
+      <p className="npm-dl-note">Verified package downloads · not user accounts</p>
     </a>
   );
 }

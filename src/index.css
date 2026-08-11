@@ -1804,3 +1804,260 @@ code,
     display: none;
   }
 }
+
+/* ——— V2 case demo ——— */
+.hero-tagline {
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0.35rem 0 0.75rem;
+  max-width: 36rem;
+}
+
+.hero-trust {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+  max-width: 36rem;
+}
+
+.case-demo {
+  margin: 3rem 0 1rem;
+  padding: 0 0 2rem;
+}
+
+.case-demo-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.25rem 0 1rem;
+}
+
+.case-demo-tab {
+  font: inherit;
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+
+.case-demo-tab.is-active {
+  color: var(--fg);
+  border-color: var(--border-hover);
+  background: var(--bg-elevated);
+}
+
+.case-demo-blurb {
+  color: var(--fg-muted);
+  margin-bottom: 1rem;
+  max-width: 40rem;
+}
+
+.case-demo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .case-demo-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.case-file,
+.gate-board {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  padding: 1rem 1.1rem;
+}
+
+.case-file-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+}
+
+.case-verdict {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.case-verdict-ready {
+  color: var(--success);
+  border-color: rgba(62, 207, 142, 0.35);
+}
+
+.case-verdict-blocked {
+  color: var(--danger);
+  border-color: rgba(240, 113, 120, 0.35);
+}
+
+.case-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  margin: 0.85rem 0 0.35rem;
+}
+
+.case-excluded,
+.case-commitments ul,
+.gate-list,
+.plain-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.case-excluded li,
+.case-commitments li,
+.gate-item {
+  font-size: 0.875rem;
+  padding: 0.25rem 0;
+  color: var(--fg-muted);
+}
+
+.gate-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.gate-pass {
+  color: var(--success);
+}
+
+.gate-blocked,
+.gate-fail {
+  color: var(--danger);
+}
+
+.gate-note {
+  margin-top: 0.85rem;
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+}
+
+.gate-note-ok {
+  color: var(--success);
+}
+
+.case-handoff,
+.case-learn {
+  margin-top: 0.85rem;
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+}
+
+.ba-table {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ba-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.ba-row > div {
+  padding: 0.85rem 1rem;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.ba-row > div:first-child {
+  border-right: 1px solid var(--border);
+  color: var(--fg-muted);
+}
+
+.ba-head > div {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-dim);
+  background: var(--bg-elevated);
+}
+
+.npm-dl-note {
+  margin-top: 0.35rem;
+  font-size: 0.6875rem;
+  color: var(--fg-dim);
+}
+
+.npm-dl-early .npm-dl-count {
+  font-size: 1.1rem;
+}
+
+.numbered-steps li {
+  margin: 0.55rem 0;
+  color: var(--fg-muted);
+}
+
+.numbered-steps strong {
+  color: var(--fg);
+  margin-right: 0.35rem;
+}
+
+.doc-block {
+  margin-top: 1.5rem;
+}
+
+.doc-block h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.code-block {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg-muted);
+}
+
+.rr-steps ol {
+  margin: 1rem 0 1.25rem;
+  padding-left: 1.2rem;
+  color: var(--fg-muted);
+}
+
+.rr-steps li {
+  margin: 0.45rem 0;
+}
+
+.design-cta {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .ba-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ba-row > div:first-child {
+    border-right: none;
+  }
+}
+

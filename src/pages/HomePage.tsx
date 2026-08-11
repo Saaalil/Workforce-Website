@@ -1,95 +1,89 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { NpmWeeklyDownloads } from "../components/NpmWeeklyDownloads";
-import { HostsMarquee } from "../components/HostsMarquee";
-import { PACKAGE, WHATS_NEW } from "../data";
+import { CaseFileDemo } from "../components/CaseFileDemo";
+import { BeforeAfter } from "../components/BeforeAfter";
+import { DesignPartnerCTA } from "../components/DesignPartnerCTA";
+import { Seo } from "../components/Seo";
+import { PAGE_SEO } from "../lib/seo";
+import { track } from "../lib/analytics";
 
 export function HomePage() {
   return (
     <>
+      <Seo page={PAGE_SEO["/"]} />
       <section className="hero">
         <Reveal className="hero-kicker" delayMs={40}>
-          Specialist context · one install
+          Local-first delivery protocol
         </Reveal>
         <h1 className="hero-brand">
           <Reveal delayMs={90}>
             <span>Workforce</span>
           </Reveal>
         </h1>
-        <Reveal delayMs={160}>
+        <Reveal delayMs={140}>
+          <p className="hero-tagline">
+            Every coding agent. One accountable engineering team.
+          </p>
+        </Reveal>
+        <Reveal delayMs={180}>
           <p className="hero-line">
-            Need specialist work — UI, data, ML, SRE — without doing all the
-            setup yourself? Install once and get the best context and prompts
-            for whatever you’re building.
+            Workforce turns an agent-written change into a shared delivery case:
+            scoped work, named owners, reviewable evidence, and a release
+            decision.
           </p>
         </Reveal>
         <Reveal className="hero-actions" delayMs={230}>
-          <Link className="btn btn-primary" to="/install">
-            Install MCP
+          <Link
+            className="btn btn-primary"
+            to="/install"
+            onClick={() =>
+              track("landing_cta_clicked", { route: "/", cta: "start_case" })
+            }
+          >
+            Start a release case
           </Link>
-          <Link className="btn btn-ghost" to="/whats-new">
-            What’s new
+          <Link
+            className="btn btn-ghost"
+            to="/release-readiness"
+            onClick={() =>
+              track("landing_cta_clicked", { route: "/", cta: "oauth_example" })
+            }
+          >
+            See a real OAuth example
           </Link>
         </Reveal>
-        <Reveal className="hero-meta" delayMs={320}>
-          <span>
-            <strong>1k</strong> users
-          </span>
-          <span>
-            <strong>one</strong> package
-          </span>
+        <Reveal className="hero-trust" delayMs={300}>
+          Local-first case files · no hidden MCP filesystem access · works
+          across agent hosts
+        </Reveal>
+        <Reveal className="hero-meta" delayMs={340}>
           <span>
             <strong>14</strong> specialties
           </span>
           <span>
-            <strong>5</strong> pods
+            <strong>V2</strong> case protocol
+          </span>
+          <span>
+            <strong>CLI</strong> + MCP
           </span>
         </Reveal>
-        <Reveal delayMs={360}>
-          <HostsMarquee label="Works across MCP clients" />
-        </Reveal>
-        <Reveal delayMs={400}>
+        <Reveal delayMs={380}>
           <NpmWeeklyDownloads />
         </Reveal>
       </section>
 
-      <section className="section home-whats" aria-labelledby="whats-new-heading">
-        <Reveal>
-          <p className="section-label">v{PACKAGE.version}</p>
-          <h2 id="whats-new-heading" className="section-title">
-            What’s new
-          </h2>
-          <p className="section-lead">
-            <strong>End-to-end finished product:</strong> themed photos and
-            assets from the web by default — not placeholders. Also{" "}
-            <strong>available in Antigravity</strong>, with pods like{" "}
-            <span className="mono">workforce/WEB</span>.
-          </p>
-        </Reveal>
+      <Reveal>
+        <CaseFileDemo />
+      </Reveal>
 
-        <div className="whats-list whats-list-home">
-          {WHATS_NEW.map((item, i) => (
-            <Reveal
-              key={item.flag}
-              className="whats-item"
-              delayMs={Math.min(i * 35, 140)}
-            >
-              <span className="prompt-flag">{item.call}</span>
-              <h3 className="specialty-name">{item.title}</h3>
-              <p className="whats-item-body">{item.body}</p>
-            </Reveal>
-          ))}
-        </div>
+      <Reveal>
+        <BeforeAfter />
+      </Reveal>
 
-        <Reveal className="hero-actions orch-actions">
-          <Link className="btn btn-primary" to="/whats-new">
-            Explore orchestration
-          </Link>
-          <Link className="btn btn-ghost" to="/support">
-            npm & GitHub
-          </Link>
-        </Reveal>
-      </section>
+      <Reveal>
+        <DesignPartnerCTA />
+      </Reveal>
     </>
   );
 }

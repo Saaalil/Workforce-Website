@@ -20,6 +20,9 @@ import {
 } from "../data";
 import { Reveal } from "../components/Reveal";
 import { HostsMarquee } from "../components/HostsMarquee";
+import { Seo } from "../components/Seo";
+import { PAGE_SEO } from "../lib/seo";
+import { track } from "../lib/analytics";
 
 function highlightJson(src: string) {
   return src
@@ -29,7 +32,7 @@ function highlightJson(src: string) {
     .replace(/([{}\[\],])/g, '<span class="p">$1</span>');
 }
 
-function useCopy() {
+function useCopy(host: string) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [errorKey, setErrorKey] = useState<string | null>(null);
 
@@ -38,6 +41,9 @@ function useCopy() {
       await navigator.clipboard.writeText(text);
       setErrorKey(null);
       setCopiedKey(key);
+      if (key === "ide" || key === "agy" || key === "cli") {
+        track("config_copied", { route: "/install", host });
+      }
       window.setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
     } catch {
       setErrorKey(key);
@@ -57,7 +63,12 @@ export function InstallPage() {
   const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
   const hostId = useId();
   const configId = useId();
-  const { copiedKey, errorKey, copy } = useCopy();
+  const { copiedKey, errorKey, copy } = useCopy(host);
+
+  const selectHost = (next: "cursor" | "claude" | "antigravity") => {
+    setHost(next);
+    track("host_selected", { route: "/install", host: next });
+  };
 
   const ideConfig =
     configTab === "npx"
@@ -88,11 +99,12 @@ export function InstallPage() {
 
   return (
     <section className="section section-page section-wide">
+      <Seo page={PAGE_SEO["/install"]} />
       <Reveal>
         <p className="section-label">Setup</p>
         <h1 className="section-title">Install in under two minutes</h1>
         <p className="section-lead">
-          Published on npm as{" "}
+          Package{" "}
           <a
             className="inline-link"
             href="https://www.npmjs.com/package/@saaalil/workforce-mcp"
@@ -101,13 +113,42 @@ export function InstallPage() {
           >
             @saaalil/workforce-mcp
           </a>{" "}
-          <span className="mono">v{PACKAGE.version}</span>. Works in{" "}
-          <strong>Cursor</strong>, <strong>Claude</strong>, and{" "}
-          <strong>Google Antigravity</strong>. Prefer{" "}
-          <span className="mono">npx</span> — use{" "}
-          <span className="mono">@1.4.4</span>+ for end-to-end finished-product
-          context (real themed assets by default) and the shebang fix.
+          <span className="mono">v{PACKAGE.version}</span>. First success path:
+          MCP → <span className="mono">workforce init</span> → assemble →
+          contract → review. Tested hosts: <strong>Cursor</strong>,{" "}
+          <strong>Claude Code</strong>, and <strong>Google Antigravity</strong>{" "}
+          (stdio).
         </p>
+      </Reveal>
+
+      <Reveal className="install-v2-steps">
+        <ol className="plain-list numbered-steps">
+          <li>
+            <strong>01</strong> Add the MCP server (Cursor / Claude / Antigravity
+            below).
+          </li>
+          <li>
+            <strong>02</strong> Run{" "}
+            <span className="mono">
+              npm exec --yes --package=@saaalil/workforce-mcp workforce init
+              --apply
+            </span>
+          </li>
+          <li>
+            <strong>03</strong> Ask the agent to call{" "}
+            <span className="mono">workforce_assemble</span> on your task.
+          </li>
+          <li>
+            <strong>04</strong> Persist with{" "}
+            <span className="mono">
+              workforce case create --from-stdin --apply
+            </span>
+          </li>
+          <li>
+            <strong>05</strong> Before merge:{" "}
+            <span className="mono">workforce review &lt;case-id&gt; --apply</span>
+          </li>
+        </ol>
       </Reveal>
 
       <Reveal delayMs={40}>
@@ -129,7 +170,7 @@ export function InstallPage() {
               aria-controls={`${hostId}-panel`}
               tabIndex={host === "cursor" ? 0 : -1}
               className={`install-tab${host === "cursor" ? " is-active" : ""}`}
-              onClick={() => setHost("cursor")}
+              onClick={() => selectHost("cursor")}
             >
               Cursor / AI IDE
             </button>
@@ -141,7 +182,7 @@ export function InstallPage() {
               aria-controls={`${hostId}-panel`}
               tabIndex={host === "claude" ? 0 : -1}
               className={`install-tab${host === "claude" ? " is-active" : ""}`}
-              onClick={() => setHost("claude")}
+              onClick={() => selectHost("claude")}
             >
               Claude Code / CLI
             </button>
@@ -153,7 +194,7 @@ export function InstallPage() {
               aria-controls={`${hostId}-panel`}
               tabIndex={host === "antigravity" ? 0 : -1}
               className={`install-tab${host === "antigravity" ? " is-active" : ""}`}
-              onClick={() => setHost("antigravity")}
+              onClick={() => selectHost("antigravity")}
             >
               Antigravity
             </button>

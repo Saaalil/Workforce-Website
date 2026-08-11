@@ -476,7 +476,7 @@ export const ANTIGRAVITY_CONFIG = `{
   "mcpServers": {
     "workforce": {
       "command": "npx",
-      "args": ["-y", "@saaalil/workforce-mcp@1.4.4"]
+      "args": ["-y", "@saaalil/workforce-mcp@1.5.0"]
     }
   }
 }`;
@@ -491,7 +491,7 @@ export const ANTIGRAVITY_GUIDE: GuideStep[] = [
   },
   {
     title: "Paste the Workforce server",
-    body: "Add the workforce entry under mcpServers (stdio via npx). Use @1.4.4 or later — older 1.4.1 builds had a shebang bug that crashed npx.",
+    body: "Add the workforce entry under mcpServers (stdio via npx). Use @1.5.0 or later for V2 case protocol + CLI.",
   },
   {
     title: "Save and refresh",
@@ -555,16 +555,16 @@ export const CLAUDE_GUIDE: GuideStep[] = [
 
 export const NAV = [
   { to: "/how", label: "How it works" },
-  { to: "/specialists", label: "Specialists" },
-  { to: "/whats-new", label: "What's new" },
+  { to: "/release-readiness", label: "Release readiness" },
   { to: "/install", label: "Install" },
-  { to: "/tools", label: "Tools" },
+  { to: "/evals", label: "Evals" },
+  { to: "/design-partners", label: "Partners" },
   { to: "/support", label: "Support" },
 ] as const;
 
 export const PACKAGE = {
   name: "@saaalil/workforce-mcp",
-  version: "1.4.4",
+  version: "1.5.0",
   npmUrl: "https://www.npmjs.com/package/@saaalil/workforce-mcp",
   githubUrl: "https://github.com/Saaalil/Workforce-MCP",
   websiteRepoUrl: "https://github.com/Saaalil/Workforce-Website",
@@ -583,6 +583,17 @@ export type ChangelogRelease = {
 
 /** Full package history shown on /whats-new */
 export const CHANGELOG: ChangelogRelease[] = [
+  {
+    version: "1.5.0",
+    date: "2026-08-11",
+    title: "V2 delivery protocol — case files, CLI, review gates",
+    highlights: [
+      "Local workforce CLI: init, case, handoff, review, learn (filesystem explicit; MCP stays read-only)",
+      "MCP tools: workforce_assemble, workforce_contract, workforce_review, workforce_learn",
+      "Deterministic roster/gates/eval fixtures; schemas exported as JSON Schema",
+      "Positioning: shared team memory, ownership, and proof of delivery",
+    ],
+  },
   {
     version: "1.4.4",
     date: "2026-08-06",
