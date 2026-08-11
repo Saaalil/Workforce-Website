@@ -37,13 +37,10 @@ export function V2Guide({
 
       <ol className="v2-guide-timeline">
         {V2_GUIDE_STEPS.map((step, i) => (
-          <li key={step.n} className="v2-guide-item">
-            <div className="v2-guide-rail" aria-hidden>
-              <span className="v2-guide-n">{step.n}</span>
-              {i < V2_GUIDE_STEPS.length - 1 ? (
-                <span className="v2-guide-line" />
-              ) : null}
-            </div>
+          <li key={step.n} className="v2-guide-step">
+            <span className="v2-guide-n" aria-hidden>
+              {step.n}
+            </span>
             <div className="v2-guide-body">
               <h3>{step.title}</h3>
               <p>{step.detail}</p>
@@ -58,6 +55,9 @@ export function V2Guide({
                 </button>
               </div>
             </div>
+            {i < V2_GUIDE_STEPS.length - 1 ? (
+              <span className="v2-guide-line" aria-hidden />
+            ) : null}
           </li>
         ))}
       </ol>

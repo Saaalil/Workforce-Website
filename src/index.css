@@ -2232,37 +2232,41 @@ code,
 
 .v2-guide {
   margin: 2.5rem 0;
+  text-align: center;
 }
 
 .v2-guide-head {
-  margin-bottom: 1.75rem;
-  max-width: 40rem;
+  margin: 0 auto 2rem;
+  max-width: 36rem;
+  text-align: center;
+}
+
+.v2-guide-head .section-lead {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .v2-guide-timeline {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 34rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0;
 }
 
 .v2-guide-step {
-  display: grid;
-  grid-template-columns: 2.75rem 1fr;
-  gap: 0 1.1rem;
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   padding: 0;
   border: none;
   border-radius: 0;
   background: transparent;
-}
-
-.v2-guide-rail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
 .v2-guide-n {
@@ -2279,55 +2283,58 @@ code,
   border-radius: 999px;
   background: var(--bg-elevated);
   padding: 0;
+  margin-bottom: 0.85rem;
 }
 
 .v2-guide-line {
-  flex: 1 1 auto;
+  display: block;
   width: 1px;
-  min-height: 1.25rem;
-  margin: 0.35rem 0;
+  height: 1.75rem;
+  margin: 1.15rem auto 0.35rem;
   background: linear-gradient(to bottom, var(--border-hover), var(--border));
 }
 
 .v2-guide-body {
-  padding: 0.15rem 0 1.75rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 0.15rem;
-}
-
-.v2-guide-step:last-child .v2-guide-body {
+  width: 100%;
+  padding: 0;
   border-bottom: none;
-  padding-bottom: 0.25rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .v2-guide-body h3 {
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .v2-guide-body p {
   font-size: 0.9375rem;
   color: var(--fg-muted);
   line-height: 1.55;
-  margin-bottom: 0.75rem;
-  max-width: 42rem;
+  margin: 0 auto 0.9rem;
+  max-width: 32rem;
+  text-align: center;
 }
 
 .v2-guide-cmd-row {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem 0.65rem;
-  padding: 0.65rem 0.75rem;
+  max-width: 100%;
+  padding: 0.65rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.35);
+  text-align: left;
 }
 
 .v2-guide-cmd {
-  flex: 1 1 12rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--fg-muted);
@@ -2337,10 +2344,12 @@ code,
   border: none;
   padding: 0;
   overflow: visible;
+  text-align: center;
 }
 
 .v2-guide-cta {
   margin-top: 1.75rem;
+  justify-content: center;
 }
 
 .v2-card-grid {
