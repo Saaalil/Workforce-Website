@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { CHANGELOG, PACKAGE, PODS_CATALOG, WHATS_NEW } from "../data";
 import { V2Outcomes, V1VsV2Table } from "../components/V2Sections";
-import { V2Guide } from "../components/V2Guide";
 
 export function WhatsNewPage() {
   return (
@@ -12,11 +11,7 @@ export function WhatsNewPage() {
         <h1 className="section-title">What’s new in V2</h1>
         <p className="section-lead">
           <strong>Delivery protocol:</strong> assemble → contract → handoff →
-          review → learn. Specialist packs and pods remain. Live as{" "}
-          <span className="mono">
-            npx -y {PACKAGE.name}@{PACKAGE.version}
-          </span>{" "}
-          once published; site already documents the workflow.
+          review → learn. Specialist packs and pods remain.
         </p>
       </Reveal>
 
@@ -42,10 +37,6 @@ export function WhatsNewPage() {
           </Reveal>
         ))}
       </div>
-
-      <Reveal>
-        <V2Guide compact />
-      </Reveal>
 
       <Reveal>
         <p className="section-label">Still shipping</p>
@@ -96,11 +87,11 @@ export function WhatsNewPage() {
       </div>
 
       <Reveal className="hero-actions">
-        <Link className="btn btn-primary" to="/install">
-          Step-by-step install
+        <Link className="btn btn-primary" to="/guide">
+          Step-by-step
         </Link>
-        <Link className="btn btn-ghost" to="/how">
-          How V2 works
+        <Link className="btn btn-ghost" to="/install">
+          Install MCP
         </Link>
       </Reveal>
     </section>

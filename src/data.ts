@@ -575,9 +575,9 @@ export const CLAUDE_GUIDE: GuideStep[] = [
 
 export const NAV = [
   { to: "/how", label: "How V2 works" },
+  { to: "/guide", label: "Step-by-step" },
+  { to: "/install", label: "Install" },
   { to: "/release-readiness", label: "Release readiness" },
-  { to: "/install", label: "Step-by-step" },
-  { to: "/docs/case-file", label: "Case file" },
   { to: "/evals", label: "Proof" },
   { to: "/design-partners", label: "Partners" },
 ] as const;
@@ -656,17 +656,10 @@ export const V1_VS_V2 = [
   },
 ] as const;
 
-/** End-to-end guide used on Home, How, and Install */
+/** Delivery workflow after MCP is installed — used on /guide */
 export const V2_GUIDE_STEPS = [
   {
     n: "01",
-    title: "Connect the MCP server",
-    detail:
-      "Add @saaalil/workforce-mcp via npx in Cursor, Claude Code, or Antigravity. V1 specialty prompts keep working. V2 tools appear as workforce_assemble, workforce_contract, workforce_review, workforce_learn.",
-    command: 'npx -y @saaalil/workforce-mcp',
-  },
-  {
-    n: "02",
     title: "Initialize the local workspace",
     detail:
       "Run the workforce CLI once in the Git repo. Creates .workforce/ (cases, reviews, learnings) and a marked block in AGENTS.md so every harness sees the same protocol. Writes require --apply.",
@@ -674,21 +667,21 @@ export const V2_GUIDE_STEPS = [
       "npm exec --yes --package=@saaalil/workforce-mcp workforce init --apply",
   },
   {
-    n: "03",
+    n: "02",
     title: "Assemble the roster",
     detail:
       "Ask your agent to call workforce_assemble with the request (e.g. enterprise OAuth + SSO). You get recommended roles, execution order, excluded specialties, and risks — deterministic rules, not vibes.",
     command: "workforce_assemble · task: Add enterprise OAuth with SSO",
   },
   {
-    n: "04",
+    n: "03",
     title: "Create the delivery contract",
     detail:
       "Call workforce_contract with the accepted assembly. You receive a draft WorkforceCase (JSON) plus Markdown summary. Persist it explicitly — MCP never writes your disk.",
     command: "workforce case create --from-stdin --apply",
   },
   {
-    n: "05",
+    n: "04",
     title: "Execute one specialty at a time",
     detail:
       "Load workforce/ARCH, then BE, SEC, QA (or whatever the roster named). Record each handoff with summary, decisions, artifacts, and unresolved assumptions so the next owner starts cold without losing state.",
@@ -696,14 +689,14 @@ export const V2_GUIDE_STEPS = [
       'workforce handoff <case-id> --from BE --to SEC --summary "…" --apply',
   },
   {
-    n: "06",
+    n: "05",
     title: "Review before merge",
     detail:
       "Attach changed files and test evidence. workforce review (CLI or MCP) returns gate results and a verdict. ready_to_merge fails if security or tests are missing — especially on protected paths like auth/.",
     command: "workforce review <case-id> --intent ready_to_merge --apply",
   },
   {
-    n: "07",
+    n: "06",
     title: "Learn from misses",
     detail:
       "If a PR is rejected or a gate was skipped, workforce_learn proposes a future policy. Accept only with workforce learn accept <id> --apply.",

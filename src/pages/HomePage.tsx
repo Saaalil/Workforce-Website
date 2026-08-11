@@ -5,7 +5,6 @@ import { CaseFileDemo } from "../components/CaseFileDemo";
 import { BeforeAfter } from "../components/BeforeAfter";
 import { DesignPartnerCTA } from "../components/DesignPartnerCTA";
 import { Seo } from "../components/Seo";
-import { V2Guide } from "../components/V2Guide";
 import {
   V2Outcomes,
   V2ProofGrid,
@@ -44,21 +43,21 @@ export function HomePage() {
         <Reveal className="hero-actions" delayMs={230}>
           <Link
             className="btn btn-primary"
-            to="/install"
+            to="/guide"
             onClick={() =>
               track("landing_cta_clicked", { route: "/", cta: "start_case" })
             }
           >
-            Step-by-step setup
+            Step-by-step guide
           </Link>
           <Link
             className="btn btn-ghost"
-            to="/how"
+            to="/install"
             onClick={() =>
-              track("landing_cta_clicked", { route: "/", cta: "how_v2" })
+              track("landing_cta_clicked", { route: "/", cta: "install" })
             }
           >
-            How V2 works
+            Install MCP
           </Link>
         </Reveal>
         <Reveal className="hero-trust" delayMs={300}>
@@ -98,10 +97,6 @@ export function HomePage() {
       </Reveal>
 
       <Reveal>
-        <V2Guide compact />
-      </Reveal>
-
-      <Reveal>
         <V2GatesList />
       </Reveal>
 
@@ -130,11 +125,11 @@ export function HomePage() {
           ))}
         </div>
         <Reveal className="hero-actions orch-actions">
-          <Link className="btn btn-primary" to="/release-readiness">
-            OAuth release example
+          <Link className="btn btn-primary" to="/guide">
+            Step-by-step
           </Link>
-          <Link className="btn btn-ghost" to="/evals">
-            Eval fixtures
+          <Link className="btn btn-ghost" to="/install">
+            Install MCP
           </Link>
         </Reveal>
       </section>

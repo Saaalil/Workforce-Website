@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { Seo } from "../components/Seo";
 import { PAGE_SEO } from "../lib/seo";
-import { V2Guide } from "../components/V2Guide";
 import { PACKAGE } from "../data";
 
 export function CaseFilePage() {
@@ -85,22 +84,13 @@ workforce learn accept <proposal-id> --apply`}</pre>
         </p>
       </Reveal>
 
-      <Reveal>
-        <V2Guide compact showInstallCta={false} />
-      </Reveal>
-
       <Reveal className="hero-actions">
-        <Link className="btn btn-primary" to="/install">
-          Install guide
+        <Link className="btn btn-primary" to="/guide">
+          Step-by-step
         </Link>
-        <a
-          className="btn btn-ghost"
-          href={`${PACKAGE.githubUrl}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub package
-        </a>
+        <Link className="btn btn-ghost" to="/install">
+          Install MCP
+        </Link>
       </Reveal>
     </section>
   );

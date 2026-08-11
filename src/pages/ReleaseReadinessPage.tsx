@@ -3,7 +3,6 @@ import { Reveal } from "../components/Reveal";
 import { Seo } from "../components/Seo";
 import { PAGE_SEO } from "../lib/seo";
 import { CaseFileDemo } from "../components/CaseFileDemo";
-import { V2Guide } from "../components/V2Guide";
 import { V2GatesList } from "../components/V2Sections";
 
 export function ReleaseReadinessPage() {
@@ -65,16 +64,12 @@ export function ReleaseReadinessPage() {
         <V2GatesList />
       </Reveal>
 
-      <Reveal>
-        <V2Guide compact showInstallCta />
-      </Reveal>
-
       <Reveal className="hero-actions">
-        <Link className="btn btn-primary" to="/install">
-          Run this on your repo
+        <Link className="btn btn-primary" to="/guide">
+          Step-by-step
         </Link>
-        <Link className="btn btn-ghost" to="/evals">
-          Matching eval fixtures
+        <Link className="btn btn-ghost" to="/install">
+          Install MCP
         </Link>
       </Reveal>
     </section>

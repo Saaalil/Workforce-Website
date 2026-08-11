@@ -59,10 +59,16 @@ export const PAGE_SEO: Record<string, PageSeo> = {
       "Early access for teams shipping agent-authored changes who want accountable delivery cases.",
     path: "/design-partners",
   },
-  "/install": {
-    title: "Install Workforce — MCP + local CLI",
+  "/guide": {
+    title: "Step-by-step — first Workforce case",
     description:
-      "Add the MCP server, run workforce init, assemble a case, and review before merge.",
+      "Init, assemble, contract, handoff, review, learn — after the MCP server is installed.",
+    path: "/guide",
+  },
+  "/install": {
+    title: "Install Workforce MCP — Cursor, Claude, Antigravity",
+    description:
+      "Add the Workforce MCP server to your agent host. Host configs only — workflow lives on Step-by-step.",
     path: "/install",
   },
 };

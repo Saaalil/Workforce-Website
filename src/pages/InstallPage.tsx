@@ -23,7 +23,7 @@ import { HostsMarquee } from "../components/HostsMarquee";
 import { Seo } from "../components/Seo";
 import { PAGE_SEO } from "../lib/seo";
 import { track } from "../lib/analytics";
-import { V2Guide } from "../components/V2Guide";
+import { Link } from "react-router-dom";
 import { V2ToolsList } from "../components/V2Sections";
 
 function highlightJson(src: string) {
@@ -103,8 +103,8 @@ export function InstallPage() {
     <section className="section section-page section-wide">
       <Seo page={PAGE_SEO["/install"]} />
       <Reveal>
-        <p className="section-label">Setup</p>
-        <h1 className="section-title">Install in under two minutes</h1>
+        <p className="section-label">Install</p>
+        <h1 className="section-title">Add Workforce to your agent host</h1>
         <p className="section-lead">
           Package{" "}
           <a
@@ -115,46 +115,15 @@ export function InstallPage() {
           >
             @saaalil/workforce-mcp
           </a>{" "}
-          <span className="mono">v{PACKAGE.version}</span>. First success path:
-          MCP → <span className="mono">workforce init</span> → assemble →
-          contract → review. Tested hosts: <strong>Cursor</strong>,{" "}
-          <strong>Claude Code</strong>, and <strong>Google Antigravity</strong>{" "}
-          (stdio).
+          <span className="mono">v{PACKAGE.version}</span>. This page is only
+          MCP server setup for <strong>Cursor</strong>,{" "}
+          <strong>Claude Code</strong>, and <strong>Google Antigravity</strong>.
+          After you’re connected, run a case on{" "}
+          <Link className="inline-link" to="/guide">
+            Step-by-step
+          </Link>
+          .
         </p>
-      </Reveal>
-
-      <Reveal className="install-v2-steps">
-        <ol className="plain-list numbered-steps">
-          <li>
-            <strong>01</strong> Add the MCP server (Cursor / Claude / Antigravity
-            below).
-          </li>
-          <li>
-            <strong>02</strong> Run{" "}
-            <span className="mono">
-              npm exec --yes --package=@saaalil/workforce-mcp workforce init
-              --apply
-            </span>
-          </li>
-          <li>
-            <strong>03</strong> Ask the agent to call{" "}
-            <span className="mono">workforce_assemble</span> on your task.
-          </li>
-          <li>
-            <strong>04</strong> Persist with{" "}
-            <span className="mono">
-              workforce case create --from-stdin --apply
-            </span>
-          </li>
-          <li>
-            <strong>05</strong> Before merge:{" "}
-            <span className="mono">workforce review &lt;case-id&gt; --apply</span>
-          </li>
-        </ol>
-      </Reveal>
-
-      <Reveal>
-        <V2Guide compact showInstallCta={false} />
       </Reveal>
 
       <Reveal delayMs={40}>
@@ -613,27 +582,20 @@ export function InstallPage() {
 
       <Reveal>
         <div className="use-block">
-          <p className="section-label">V2 first prompts</p>
-          <h2 className="use-title">After init, say this</h2>
+          <p className="section-label">Next</p>
+          <h2 className="use-title">Run your first case</h2>
           <p className="section-lead use-lead">
-            Ask the agent to call the V2 tools in order — then persist with the
-            CLI commands above.
+            MCP is connected. Continue with init → assemble → contract → review
+            on the step-by-step page.
           </p>
-          <ul className="plain-list" style={{ marginTop: "1rem" }}>
-            <li>
-              “Call <span className="mono">workforce_assemble</span> for: Add
-              enterprise OAuth with SSO enforcement”
-            </li>
-            <li>
-              “Call <span className="mono">workforce_contract</span> with that
-              assembly, then I’ll pipe JSON into{" "}
-              <span className="mono">workforce case create --from-stdin --apply</span>”
-            </li>
-            <li>
-              “Before merge, run <span className="mono">workforce review</span>{" "}
-              with our changed files and test evidence”
-            </li>
-          </ul>
+          <div className="hero-actions" style={{ marginTop: "1rem" }}>
+            <Link className="btn btn-primary" to="/guide">
+              Open step-by-step
+            </Link>
+            <Link className="btn btn-ghost" to="/docs/case-file">
+              Case file docs
+            </Link>
+          </div>
         </div>
       </Reveal>
 

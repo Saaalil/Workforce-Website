@@ -53,7 +53,7 @@ export function Layout() {
             ))}
           </nav>
           <Link className="nav-cta" to="/install">
-            Get started
+            Install
           </Link>
         </header>
 

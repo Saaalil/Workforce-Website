@@ -13,6 +13,7 @@ import { ReleaseReadinessPage } from "./pages/ReleaseReadinessPage";
 import { CaseFilePage } from "./pages/CaseFilePage";
 import { EvalsPage } from "./pages/EvalsPage";
 import { DesignPartnersPage } from "./pages/DesignPartnersPage";
+import { GuidePage } from "./pages/GuidePage";
 
 export default function App() {
   return (
@@ -22,6 +23,8 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="how" element={<HowPage />} />
           <Route path="how-it-works" element={<Navigate to="/how" replace />} />
+          <Route path="guide" element={<GuidePage />} />
+          <Route path="step-by-step" element={<Navigate to="/guide" replace />} />
           <Route path="specialists" element={<SpecialistsPage />} />
           <Route path="whats-new" element={<WhatsNewPage />} />
           <Route path="install" element={<InstallPage />} />

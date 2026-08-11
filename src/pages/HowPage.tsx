@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { Seo } from "../components/Seo";
-import { V2Guide } from "../components/V2Guide";
 import {
   V2Outcomes,
   V2ProofGrid,
@@ -9,7 +8,6 @@ import {
   V2GatesList,
   V2ToolsList,
 } from "../components/V2Sections";
-import { CaseFileDemo } from "../components/CaseFileDemo";
 import { PAGE_SEO } from "../lib/seo";
 
 export function HowPage() {
@@ -46,11 +44,14 @@ export function HowPage() {
       </Reveal>
 
       <Reveal>
-        <V2Guide />
-      </Reveal>
-
-      <Reveal>
-        <CaseFileDemo />
+        <div className="hero-actions">
+          <Link className="btn btn-primary" to="/guide">
+            Step-by-step guide
+          </Link>
+          <Link className="btn btn-ghost" to="/install">
+            Install MCP
+          </Link>
+        </div>
       </Reveal>
 
       <Reveal>
@@ -79,8 +80,12 @@ export function HowPage() {
           </li>
         </ul>
         <p style={{ marginTop: "1rem" }}>
+          <Link className="inline-link" to="/guide">
+            Step-by-step
+          </Link>{" "}
+          ·{" "}
           <Link className="inline-link" to="/install">
-            Install + host configs
+            Install
           </Link>{" "}
           ·{" "}
           <Link className="inline-link" to="/docs/case-file">

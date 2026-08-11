@@ -5,10 +5,11 @@ import { track } from "../lib/analytics";
 
 export function V2Guide({
   compact = false,
-  showInstallCta = true,
+  showCta = false,
 }: {
   compact?: boolean;
-  showInstallCta?: boolean;
+  /** Optional footer links — never embeds Install host configs */
+  showCta?: boolean;
 }) {
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -27,11 +28,15 @@ export function V2Guide({
       <header className="v2-guide-head">
         <p className="section-label">Step-by-step</p>
         <h2 id="v2-guide-title" className="section-title">
-          {compact ? "First case in seven steps" : "How to run Workforce V2"}
+          {compact ? "First case in six steps" : "Run a delivery case"}
         </h2>
         <p className="section-lead">
           MCP tools return data. The CLI persists it. Write commands need{" "}
-          <span className="mono">--apply</span>.
+          <span className="mono">--apply</span>. Install the server separately on{" "}
+          <Link className="inline-link" to="/install">
+            Install
+          </Link>
+          .
         </p>
       </header>
 
@@ -62,19 +67,19 @@ export function V2Guide({
         ))}
       </ol>
 
-      {showInstallCta && (
+      {showCta && (
         <div className="hero-actions v2-guide-cta">
           <Link
             className="btn btn-primary"
             to="/install"
             onClick={() =>
               track("landing_cta_clicked", {
-                route: "/how",
-                cta: "full_install",
+                route: "/guide",
+                cta: "need_install",
               })
             }
           >
-            Full install configs
+            Need MCP install?
           </Link>
           <Link className="btn btn-ghost" to="/docs/case-file">
             Case file reference
