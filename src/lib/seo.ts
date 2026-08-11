@@ -13,10 +13,16 @@ export function absoluteUrl(path: string): string {
 }
 
 export const PAGE_SEO: Record<string, PageSeo> = {
-  "/": {
-    title: "Workforce — Shared team memory for AI coding agents",
+  "/how": {
+    title: "How Workforce V2 works — delivery protocol",
     description:
-      "Workforce turns agent-written changes into shared delivery cases: scoped work, named owners, reviewable evidence, and a release decision.",
+      "Step-by-step: init, assemble, contract, handoff, review, learn. Shared case files, release gates, filesystem-free MCP.",
+    path: "/how",
+  },
+  "/": {
+    title: "Workforce V2 — Shared team memory for AI coding agents",
+    description:
+      "Workforce V2 turns agent-written changes into shared delivery cases: scoped work, named owners, reviewable evidence, and a release decision.",
     path: "/",
     jsonLd: {
       "@context": "https://schema.org",

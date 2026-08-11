@@ -23,6 +23,8 @@ import { HostsMarquee } from "../components/HostsMarquee";
 import { Seo } from "../components/Seo";
 import { PAGE_SEO } from "../lib/seo";
 import { track } from "../lib/analytics";
+import { V2Guide } from "../components/V2Guide";
+import { V2ToolsList } from "../components/V2Sections";
 
 function highlightJson(src: string) {
   return src
@@ -149,6 +151,10 @@ export function InstallPage() {
             <span className="mono">workforce review &lt;case-id&gt; --apply</span>
           </li>
         </ol>
+      </Reveal>
+
+      <Reveal>
+        <V2Guide compact showInstallCta={false} />
       </Reveal>
 
       <Reveal delayMs={40}>
@@ -600,6 +606,36 @@ export function InstallPage() {
           </Reveal>
         ))}
       </div>
+
+      <Reveal>
+        <V2ToolsList />
+      </Reveal>
+
+      <Reveal>
+        <div className="use-block">
+          <p className="section-label">V2 first prompts</p>
+          <h2 className="use-title">After init, say this</h2>
+          <p className="section-lead use-lead">
+            Ask the agent to call the V2 tools in order — then persist with the
+            CLI commands above.
+          </p>
+          <ul className="plain-list" style={{ marginTop: "1rem" }}>
+            <li>
+              “Call <span className="mono">workforce_assemble</span> for: Add
+              enterprise OAuth with SSO enforcement”
+            </li>
+            <li>
+              “Call <span className="mono">workforce_contract</span> with that
+              assembly, then I’ll pipe JSON into{" "}
+              <span className="mono">workforce case create --from-stdin --apply</span>”
+            </li>
+            <li>
+              “Before merge, run <span className="mono">workforce review</span>{" "}
+              with our changed files and test evidence”
+            </li>
+          </ul>
+        </div>
+      </Reveal>
 
       <Reveal>
         <div className="use-block">

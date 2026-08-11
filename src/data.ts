@@ -247,6 +247,26 @@ export const USAGE_PROMPTS = SPECIALISTS.map((s) => ({
 /** MCP tools — what calling each one achieves */
 export const TOOLS = [
   {
+    name: "workforce_assemble",
+    achieves:
+      "V2 — recommend the smallest specialist roster, order, exclusions, and risks for a delivery request.",
+  },
+  {
+    name: "workforce_contract",
+    achieves:
+      "V2 — build a draft WorkforceCase (commitments, gates, scope) + Markdown summary. Persist with the CLI.",
+  },
+  {
+    name: "workforce_review",
+    achieves:
+      "V2 — evidence vs commitments → ready / not_ready / blocked. Never invents passes.",
+  },
+  {
+    name: "workforce_learn",
+    achieves:
+      "V2 — policy proposal from incident/rollback/missed gate. Human must accept via CLI.",
+  },
+  {
     name: "workforce_list_roles",
     achieves:
       "See the full catalog: short flags, aliases, what each specialty owns and does not own — so you pick the right context before loading one.",
@@ -554,12 +574,12 @@ export const CLAUDE_GUIDE: GuideStep[] = [
 ];
 
 export const NAV = [
-  { to: "/how", label: "How it works" },
+  { to: "/how", label: "How V2 works" },
   { to: "/release-readiness", label: "Release readiness" },
-  { to: "/install", label: "Install" },
-  { to: "/evals", label: "Evals" },
+  { to: "/install", label: "Step-by-step" },
+  { to: "/docs/case-file", label: "Case file" },
+  { to: "/evals", label: "Proof" },
   { to: "/design-partners", label: "Partners" },
-  { to: "/support", label: "Support" },
 ] as const;
 
 export const PACKAGE = {
@@ -587,6 +607,184 @@ export const ACTIVE_USERS = {
   note: "From external dashboard · active installs",
   href: "/design-partners",
 } as const;
+
+/** What V2 actually delivers — outcomes, not slogans */
+export const V2_OUTCOMES = [
+  {
+    title: "A versioned delivery case",
+    body: "Every high-risk change gets a committed WorkforceCase under .workforce/cases/ — goal, scope, roster, commitments, gates, handoffs, and events. Portable across Cursor, Claude Code, and Antigravity.",
+  },
+  {
+    title: "Smallest necessary roster",
+    body: "workforce_assemble recommends who must own the slice (e.g. ARCH → BE → SEC → QA) and names who is excluded — with reasons. Never dumps all 14 specialties by default.",
+  },
+  {
+    title: "Evidence-backed merge decision",
+    body: "workforce review compares the contract to supplied diffs and test evidence. Missing security or test proof fails closed — filenames never invent a pass.",
+  },
+  {
+    title: "Learning without silent policy drift",
+    body: "Incidents and missed gates become learn proposals. Humans accept via CLI. Nothing auto-promotes into your repo policies.",
+  },
+] as const;
+
+/** V1 vs V2 — proof of the product shift */
+export const V1_VS_V2 = [
+  {
+    v1: "Specialist prose in the chat",
+    v2: "Versioned case + machine-readable contract",
+  },
+  {
+    v1: "You pick a role manually",
+    v2: "Minimal roster with explicit exclusions",
+  },
+  {
+    v1: "Handoff is another prompt",
+    v2: "Handoff records owner, artifacts, unresolved items",
+  },
+  {
+    v1: "Quality bars are suggestions",
+    v2: "Gates with required evidence and statuses",
+  },
+  {
+    v1: "Context dies when you switch hosts",
+    v2: "Committed .workforce/ travels with the repo",
+  },
+  {
+    v1: "“Looks done” is agent judgment",
+    v2: "Review verdict: ready / not_ready / blocked",
+  },
+] as const;
+
+/** End-to-end guide used on Home, How, and Install */
+export const V2_GUIDE_STEPS = [
+  {
+    n: "01",
+    title: "Connect the MCP server",
+    detail:
+      "Add @saaalil/workforce-mcp via npx in Cursor, Claude Code, or Antigravity. V1 specialty prompts keep working. V2 tools appear as workforce_assemble, workforce_contract, workforce_review, workforce_learn.",
+    command: 'npx -y @saaalil/workforce-mcp',
+  },
+  {
+    n: "02",
+    title: "Initialize the local workspace",
+    detail:
+      "Run the workforce CLI once in the Git repo. Creates .workforce/ (cases, reviews, learnings) and a marked block in AGENTS.md so every harness sees the same protocol. Writes require --apply.",
+    command:
+      "npm exec --yes --package=@saaalil/workforce-mcp workforce init --apply",
+  },
+  {
+    n: "03",
+    title: "Assemble the roster",
+    detail:
+      "Ask your agent to call workforce_assemble with the request (e.g. enterprise OAuth + SSO). You get recommended roles, execution order, excluded specialties, and risks — deterministic rules, not vibes.",
+    command: "workforce_assemble · task: Add enterprise OAuth with SSO",
+  },
+  {
+    n: "04",
+    title: "Create the delivery contract",
+    detail:
+      "Call workforce_contract with the accepted assembly. You receive a draft WorkforceCase (JSON) plus Markdown summary. Persist it explicitly — MCP never writes your disk.",
+    command: "workforce case create --from-stdin --apply",
+  },
+  {
+    n: "05",
+    title: "Execute one specialty at a time",
+    detail:
+      "Load workforce/ARCH, then BE, SEC, QA (or whatever the roster named). Record each handoff with summary, decisions, artifacts, and unresolved assumptions so the next owner starts cold without losing state.",
+    command:
+      'workforce handoff <case-id> --from BE --to SEC --summary "…" --apply',
+  },
+  {
+    n: "06",
+    title: "Review before merge",
+    detail:
+      "Attach changed files and test evidence. workforce review (CLI or MCP) returns gate results and a verdict. ready_to_merge fails if security or tests are missing — especially on protected paths like auth/.",
+    command: "workforce review <case-id> --intent ready_to_merge --apply",
+  },
+  {
+    n: "07",
+    title: "Learn from misses",
+    detail:
+      "If a PR is rejected or a gate was skipped, workforce_learn proposes a future policy. Accept only with workforce learn accept <id> --apply.",
+    command:
+      'workforce learn propose <case-id> --event missed_gate --narrative "…"',
+  },
+] as const;
+
+/** Concrete proof points we can defend publicly */
+export const V2_PROOF = [
+  {
+    title: "12 deterministic eval fixtures",
+    body: "OAuth, webhooks, PII migrations, incidents, RAG — roster and gate expectations run with no LLM calls (npm run eval).",
+    link: "/evals",
+    linkLabel: "See methodology",
+  },
+  {
+    title: "MCP stays filesystem-free",
+    body: "dist/index.js is audited for no fs / shell / eval / network. Local state is only via the explicit workforce CLI.",
+    link: "/how",
+    linkLabel: "Security model",
+  },
+  {
+    title: "JSON Schema as an API",
+    body: "schemas/workforce-case.schema.json and review/learn schemas ship in the package for CI and external agents.",
+    link: "/docs/case-file",
+    linkLabel: "Case file docs",
+  },
+  {
+    title: "Gates fail closed",
+    body: "Empty evidence cannot pass ready_to_merge. Protected-path changes require security evidence — not a filename that looks secure.",
+    link: "/release-readiness",
+    linkLabel: "Release readiness",
+  },
+] as const;
+
+export const V2_GATES = [
+  {
+    id: "scope",
+    meaning: "Commitments not blocked; assumptions marked, not invented",
+  },
+  {
+    id: "security",
+    meaning: "Threat/authz evidence when SEC is on roster or protected paths change",
+  },
+  {
+    id: "test-evidence",
+    meaning: "At least one supplied test with result: pass for merge/release",
+  },
+  {
+    id: "handoff",
+    meaning: "Multi-role cases record at least one accountable handoff",
+  },
+  {
+    id: "release",
+    meaning: "Other required gates clear for ready_to_merge / release",
+  },
+] as const;
+
+export const V2_TOOLS = [
+  {
+    name: "workforce_assemble",
+    achieves:
+      "Recommend the smallest specialist roster, execution order, exclusions with reasons, and named risks. nextAction = create_contract.",
+  },
+  {
+    name: "workforce_contract",
+    achieves:
+      "Turn an accepted assembly into a validated draft WorkforceCase + Markdown summary. Does not write files — persist with the CLI.",
+  },
+  {
+    name: "workforce_review",
+    achieves:
+      "Compare a supplied case and evidence to commitments/gates. Verdict: ready | not_ready | blocked. Never invents test or security passes.",
+  },
+  {
+    name: "workforce_learn",
+    achieves:
+      "Turn an incident, rollback, rejected PR, or missed gate into a policy proposal. Accept only via CLI.",
+  },
+] as const;
 
 export type ChangelogRelease = {
   version: string;
@@ -717,32 +915,32 @@ export type WhatsNewItem = {
 /** Featured on home + /whats-new */
 export const WHATS_NEW: WhatsNewItem[] = [
   {
+    flag: "V2",
+    title: "Delivery protocol — case files & review gates",
+    body: "Assemble a minimal roster, write a versioned WorkforceCase, hand off with artifacts, and review against evidence before merge. Local CLI for .workforce/; MCP tools stay read-only.",
+    call: "workforce_assemble",
+    when: "High-risk agent-authored PRs (auth, payments, protected paths)",
+  },
+  {
+    flag: "CLI",
+    title: "Explicit workforce CLI",
+    body: "workforce init / case / handoff / review / learn. Writes require --apply. No hidden MCP filesystem access — the security model stays intact.",
+    call: "workforce init --apply",
+    when: "First time in a repo, or before merge review",
+  },
+  {
     flag: "E2E",
     title: "End-to-end finished product",
-    body: "Every specialty brief now expects the full deliverable: real copy, themed photos/assets from license-clear web sources by default — not lorem and gray boxes. Example: a Suits-themed site pulls courtroom/legal atmosphere imagery and polish, not placeholders.",
+    body: "Specialty briefs still expect the full deliverable: real copy, themed photos/assets from license-clear web sources by default — not lorem and gray boxes.",
     call: "Constitution",
     when: "Any user-visible build (sites, apps, landing pages)",
   },
   {
     flag: "AGY",
-    title: "Now available in Antigravity as well!",
-    body: "Google Antigravity IDE & CLI: add Workforce to mcp_config.json via npx (v1.4.3+). Same pods and specialties — workforce/WEB, discuss, MGR — now beside Cursor and Claude.",
-    call: "Antigravity",
-    when: "You’re on Antigravity and want specialist context in the agent",
-  },
-  {
-    flag: "WEB",
-    title: "Pods — roster presets",
-    body: "Call workforce/WEB (UI+FE+BE), DP (DE+DS), AIP (AI+ML+DS+DE), PLAT, or SHIP. Member POVs → delegation → one specialty. Not a mega-skill dump. Specialty AI ≠ pod AIP.",
-    call: "workforce/WEB",
-    when: "You know the band of crafts but not yet the first owner",
-  },
-  {
-    flag: "MGR",
-    title: "Manager specialty",
-    body: "Delegate slices across the roster, sequence handoffs, and keep one specialty executing at a time — a delivery lead for your agent.",
-    call: "workforce/MGR",
-    when: "Who should own what before craft work starts",
+    title: "Cursor · Claude · Antigravity",
+    body: "Same V2 protocol across tested stdio hosts. Specialty packs and pods (WEB, DP, AIP) remain available alongside assemble/contract/review.",
+    call: "Install",
+    when: "You’re switching harnesses mid-delivery",
   },
 ];
 

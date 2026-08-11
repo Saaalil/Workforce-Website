@@ -1,72 +1,58 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "../components/Reveal";
 import { CHANGELOG, PACKAGE, PODS_CATALOG, WHATS_NEW } from "../data";
+import { V2Outcomes, V1VsV2Table } from "../components/V2Sections";
+import { V2Guide } from "../components/V2Guide";
 
 export function WhatsNewPage() {
   return (
     <section className="section section-page section-wide">
       <Reveal>
         <p className="section-label">v{PACKAGE.version} · latest</p>
-        <h1 className="section-title">What’s new</h1>
+        <h1 className="section-title">What’s new in V2</h1>
         <p className="section-lead">
-          <strong>End-to-end finished product</strong> context in v
-          {PACKAGE.version}: real copy + themed web assets by default. Still{" "}
-          <strong>available in Antigravity</strong>, Cursor, and Claude — pods
-          like <span className="mono">workforce/WEB</span>, Manager, discuss.
-          Live on{" "}
-          <span className="mono">npx -y {PACKAGE.name}@{PACKAGE.version}</span>.
+          <strong>Delivery protocol:</strong> assemble → contract → handoff →
+          review → learn. Specialist packs and pods remain. Live as{" "}
+          <span className="mono">
+            npx -y {PACKAGE.name}@{PACKAGE.version}
+          </span>{" "}
+          once published; site already documents the workflow.
         </p>
       </Reveal>
 
       <Reveal>
-        <p className="section-label">v{PACKAGE.version}</p>
-        <h2 className="use-title">End-to-end finished product</h2>
-        <p className="section-lead use-lead">
-          Specialty briefs now assume you want a <strong>demo-ready</strong>{" "}
-          deliverable — not a scaffold. Agents pull{" "}
-          <strong>themed photos and assets from license-clear web sources</strong>{" "}
-          (Unsplash, Pexels, Wikimedia, Openverse) by default, write real copy,
-          and wire images properly. Gray boxes and lorem only if you asked for a
-          stub. Example: a Suits-themed site gets courtroom/legal atmosphere
-          imagery and polish, not placeholders.
-        </p>
+        <V2Outcomes />
       </Reveal>
 
       <Reveal>
-        <p className="section-label">Hosts</p>
-        <h2 className="use-title">Cursor · Claude · Antigravity</h2>
-        <p className="section-lead use-lead">
-          Antigravity uses{" "}
-          <span className="mono">mcp_config.json</span> (stdio + npx). Open{" "}
-          <Link className="inline-link" to="/install">
-            Install
-          </Link>{" "}
-          for the Antigravity tab and copy-paste config. Prefer{" "}
-          <span className="mono">@1.4.3</span>+ (fixes the old shebang crash on
-          1.4.1); latest is <span className="mono">@{PACKAGE.version}</span>.
-        </p>
+        <V1VsV2Table />
+      </Reveal>
+
+      <div className="whats-list">
+        {WHATS_NEW.map((item, i) => (
+          <Reveal
+            key={item.flag}
+            className="whats-item"
+            delayMs={Math.min(i * 35, 140)}
+          >
+            <span className="prompt-flag">{item.call}</span>
+            <h3 className="specialty-name">{item.title}</h3>
+            <p className="whats-item-body">{item.body}</p>
+            <p className="whats-item-when">{item.when}</p>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal>
+        <V2Guide compact />
       </Reveal>
 
       <Reveal>
-        <p className="section-label">What is workforce/WEB?</p>
-        <h2 className="use-title">A pod — not a specialty</h2>
+        <p className="section-label">Still shipping</p>
+        <h2 className="use-title">Pods</h2>
         <p className="section-lead use-lead">
-          <span className="mono">workforce/WEB</span> loads the{" "}
-          <strong>Web product pod</strong>: member voices UI · FE · BE, a
-          delegation table, then you execute <em>one</em> flag (usually{" "}
-          <span className="mono">workforce/UI</span> first). It is not “be
-          frontend forever” and not a merged mega-prompt.
-        </p>
-      </Reveal>
-
-      <Reveal>
-        <p className="section-label">v{PACKAGE.version}</p>
-        <h2 className="use-title">Pods — roster presets</h2>
-        <p className="section-lead use-lead">
-          Member POVs → delegation → first{" "}
-          <span className="mono">workforce/FLAG</span>. Specialty{" "}
-          <span className="mono">AI</span> ≠ pod{" "}
-          <span className="mono">AIP</span>.
+          WEB / DP / AIP / PLAT / SHIP — roster presets before a single specialty
+          executes.
         </p>
       </Reveal>
 
@@ -82,90 +68,25 @@ export function WhatsNewPage() {
               <h3 className="specialty-name">{p.title}</h3>
             </div>
             <p className="whats-item-body">{p.description}</p>
-            <p className="whats-item-body">
-              <span className="mono">{p.members}</span>
-              {" · "}
-              {p.memberCount} specialties
-            </p>
-            <p className="prompt-catalog-when">
-              <span className="mono">When:</span> {p.when}
-            </p>
-            <code className="call-chip">{p.call}</code>
-          </Reveal>
-        ))}
-      </div>
-
-      <div className="flow orch-flow">
-        <Reveal className="flow-step" delayMs={40}>
-          <span className="n">01</span>
-          <h2>Pod or discuss</h2>
-          <p>
-            Fixed band (<span className="mono">WEB</span>) or full-table discuss
-            — challenges per specialty.
-          </p>
-        </Reveal>
-        <Reveal className="flow-step" delayMs={100}>
-          <span className="n">02</span>
-          <h2>Delegate</h2>
-          <p>Owners, order, acceptance — one primary specialty per slice.</p>
-        </Reveal>
-        <Reveal className="flow-step" delayMs={160}>
-          <span className="n">03</span>
-          <h2>Execute one</h2>
-          <p>
-            Call a single{" "}
-            <span className="mono">workforce/FLAG</span>, then handoff.
-          </p>
-        </Reveal>
-      </div>
-
-      <Reveal>
-        <p className="section-label">Also shipping with recent releases</p>
-        <h2 className="use-title">Manager · discuss · postmortem</h2>
-      </Reveal>
-
-      <div className="whats-list">
-        {WHATS_NEW.filter((item) => item.flag !== "WEB").map((item, i) => (
-          <Reveal
-            key={item.flag}
-            className="whats-item"
-            delayMs={Math.min(i * 40, 160)}
-          >
-            <div className="whats-item-head">
-              <span className="prompt-flag">{item.call}</span>
-              <h3 className="specialty-name">{item.title}</h3>
-            </div>
-            <p className="whats-item-body">{item.body}</p>
-            <p className="prompt-catalog-when">
-              <span className="mono">When:</span> {item.when}
-            </p>
-            <code className="call-chip">{item.call}</code>
           </Reveal>
         ))}
       </div>
 
       <Reveal>
         <p className="section-label">Changelog</p>
-        <h2 className="use-title">From 1.0 to {PACKAGE.version}</h2>
-        <p className="section-lead use-lead">
-          Everything added across published releases of{" "}
-          <span className="mono">{PACKAGE.name}</span>.
-        </p>
+        <h2 className="use-title">Package history</h2>
       </Reveal>
-
-      <div className="changelog-list">
-        {CHANGELOG.map((rel, i) => (
-          <Reveal
-            key={rel.version}
-            className="changelog-item"
-            delayMs={Math.min(i * 40, 160)}
-          >
-            <div className="changelog-head">
-              <span className="prompt-flag">v{rel.version}</span>
-              <span className="changelog-date">{rel.date}</span>
-            </div>
-            <h3 className="specialty-name">{rel.title}</h3>
-            <ul className="changelog-bullets">
+      <div className="whats-list">
+        {CHANGELOG.slice(0, 6).map((rel) => (
+          <Reveal key={rel.version} className="whats-item">
+            <span className="prompt-flag">v{rel.version}</span>
+            <h3 className="specialty-name">
+              {rel.title}{" "}
+              <span className="fg-dim" style={{ fontWeight: 400 }}>
+                · {rel.date}
+              </span>
+            </h3>
+            <ul className="plain-list">
               {rel.highlights.map((h) => (
                 <li key={h}>{h}</li>
               ))}
@@ -174,12 +95,12 @@ export function WhatsNewPage() {
         ))}
       </div>
 
-      <Reveal className="hero-actions orch-actions">
+      <Reveal className="hero-actions">
         <Link className="btn btn-primary" to="/install">
-          Install v{PACKAGE.version}
+          Step-by-step install
         </Link>
-        <Link className="btn btn-ghost" to="/tools">
-          All tools & prompts
+        <Link className="btn btn-ghost" to="/how">
+          How V2 works
         </Link>
       </Reveal>
     </section>
