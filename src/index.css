@@ -1786,6 +1786,16 @@ code,
     transform: none !important;
   }
 
+  .case-demo-progress-bar,
+  .stats-progress::after,
+  .case-demo-panel-anim,
+  .case-reveal,
+  .stats-metric-value,
+  .stats-metric-label,
+  .gate-item {
+    animation: none !important;
+  }
+
   .hosts-marquee-track {
     flex-wrap: wrap;
     width: 100%;
@@ -1830,7 +1840,7 @@ code,
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin: 1.25rem 0 1rem;
+  margin: 1.25rem 0 0.65rem;
 }
 
 .case-demo-tab {
@@ -1842,6 +1852,8 @@ code,
   background: transparent;
   color: var(--fg-muted);
   cursor: pointer;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease),
+    background 0.25s var(--ease);
 }
 
 .case-demo-tab.is-active {
@@ -1850,10 +1862,85 @@ code,
   background: var(--bg-elevated);
 }
 
+.case-demo-tab.is-done {
+  color: var(--fg-muted);
+  border-color: rgba(62, 207, 142, 0.25);
+}
+
+.case-demo-progress {
+  height: 2px;
+  margin: 0 0 1rem;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.case-demo-progress-bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--fg-muted);
+  animation: case-progress linear forwards;
+}
+
+@keyframes case-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.case-demo-panel-anim {
+  animation: case-panel-in 0.55s var(--ease);
+}
+
+@keyframes case-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .case-demo-blurb {
   color: var(--fg-muted);
   margin-bottom: 1rem;
   max-width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 0.75rem;
+}
+
+.case-demo-stage {
+  font-size: 0.6875rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.04em;
+}
+
+.case-reveal {
+  animation: case-reveal 0.5s var(--ease) both;
+}
+
+@keyframes case-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gate-item {
+  animation: case-reveal 0.4s var(--ease) both;
 }
 
 .case-demo-grid {
@@ -2011,8 +2098,54 @@ code,
   max-width: 22rem;
 }
 
-.stats-cycle .npm-dl {
-  margin-top: 0.55rem;
+.stats-one-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-one-card .stats-cycle-dots {
+  margin: 0;
+}
+
+.stats-metric-label {
+  margin: 0.65rem 0 0.35rem;
+  animation: stats-fade 0.45s var(--ease);
+}
+
+.stats-metric-value {
+  display: inline-block;
+  animation: stats-number 0.5s var(--ease);
+}
+
+@keyframes stats-number {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stats-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.stats-progress::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--fg-dim);
+  transform-origin: left;
+  animation: case-progress 5s linear infinite;
 }
 
 .stats-cycle-dots {
@@ -2037,16 +2170,12 @@ code,
 .stats-dot.is-active {
   color: var(--fg);
   border-color: var(--border-hover);
-  background: var(--bg-elevated);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .stats-dot:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-
-.stats-slide {
-  animation: stats-fade 0.35s var(--ease);
 }
 
 @keyframes stats-fade {
@@ -2058,17 +2187,6 @@ code,
     opacity: 1;
     transform: none;
   }
-}
-
-.stats-cycle-compact {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.stats-cycle-sep {
-  color: var(--fg-dim);
 }
 
 .numbered-steps li {
@@ -2116,57 +2234,113 @@ code,
   margin: 2.5rem 0;
 }
 
-.v2-guide-list {
+.v2-guide-head {
+  margin-bottom: 1.75rem;
+  max-width: 40rem;
+}
+
+.v2-guide-timeline {
   list-style: none;
   padding: 0;
-  margin: 1.5rem 0 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0;
 }
 
 .v2-guide-step {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.85rem 1rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-elevated);
+  grid-template-columns: 2.75rem 1fr;
+  gap: 0 1.1rem;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.v2-guide-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .v2-guide-n {
+  flex: 0 0 auto;
+  width: 2.35rem;
+  height: 2.35rem;
+  display: grid;
+  place-items: center;
   font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--fg-dim);
-  padding-top: 0.2rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  border: 1px solid var(--border-hover);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  padding: 0;
 }
 
-.v2-guide-step h3 {
+.v2-guide-line {
+  flex: 1 1 auto;
+  width: 1px;
+  min-height: 1.25rem;
+  margin: 0.35rem 0;
+  background: linear-gradient(to bottom, var(--border-hover), var(--border));
+}
+
+.v2-guide-body {
+  padding: 0.15rem 0 1.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.15rem;
+}
+
+.v2-guide-step:last-child .v2-guide-body {
+  border-bottom: none;
+  padding-bottom: 0.25rem;
+}
+
+.v2-guide-body h3 {
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 
-.v2-guide-step p,
-.v2-guide-compact-detail {
+.v2-guide-body p {
   font-size: 0.9375rem;
   color: var(--fg-muted);
-  margin-bottom: 0.65rem;
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+  max-width: 42rem;
+}
+
+.v2-guide-cmd-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.65rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .v2-guide-cmd {
+  flex: 1 1 12rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--fg-muted);
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.55rem 0.7rem;
-  overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-word;
+  background: none;
+  border: none;
+  padding: 0;
+  overflow: visible;
+}
+
+.v2-guide-cta {
+  margin-top: 1.75rem;
 }
 
 .v2-card-grid {

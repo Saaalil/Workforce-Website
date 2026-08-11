@@ -42,6 +42,8 @@ const STEPS: { id: DemoStep; label: string; blurb: string }[] = [
   },
 ];
 
+const STEP_MS = 10_000;
+
 const EXAMPLE = {
   request: "Add enterprise OAuth with SSO enforcement",
   order: ["ARCH", "BE", "SEC", "QA"],
@@ -72,6 +74,15 @@ function gatesFor(step: DemoStep): Gate[] {
       { id: "release", status: "pending" },
     ];
   }
+  if (step === "contract") {
+    return [
+      { id: "scope", status: "pending" },
+      { id: "security", status: "pending" },
+      { id: "test-evidence", status: "pending" },
+      { id: "handoff", status: "pending" },
+      { id: "release", status: "pending" },
+    ];
+  }
   return [
     { id: "scope", status: "pending" },
     { id: "security", status: "pending" },
@@ -84,8 +95,10 @@ function gatesFor(step: DemoStep): Gate[] {
 export function CaseFileDemo() {
   const [step, setStep] = useState<DemoStep>("request");
   const [paused, setPaused] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
   const tablistId = useId();
   const gates = gatesFor(step);
+  const stepIndex = STEPS.findIndex((s) => s.id === step);
   const verdict =
     step === "review" || step === "learn"
       ? "ready"
@@ -97,7 +110,6 @@ export function CaseFileDemo() {
     track("case_demo_step_viewed", { route: "/", step });
   }, [step]);
 
-  // Auto-cycle steps; pause on hover/focus/manual pick; respect reduced motion
   useEffect(() => {
     if (paused) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -107,12 +119,14 @@ export function CaseFileDemo() {
         const i = STEPS.findIndex((s) => s.id === current);
         return STEPS[(i + 1) % STEPS.length]!.id;
       });
-    }, 3800);
+      setAnimKey((k) => k + 1);
+    }, STEP_MS);
     return () => window.clearInterval(id);
   }, [paused]);
 
   const goTo = (next: DemoStep) => {
     setStep(next);
+    setAnimKey((k) => k + 1);
     setPaused(true);
   };
 
@@ -135,8 +149,8 @@ export function CaseFileDemo() {
         </p>
         <h2 className="section-title">One request → a reviewable case</h2>
         <p className="section-lead">
-          Example labeled sample — not live repository data. Auto-cycles;
-          hover or use arrow keys to pause and explore.
+          Cycles every 10 seconds through all stages. Hover or click a step to
+          pause.
         </p>
       </div>
 
@@ -156,7 +170,7 @@ export function CaseFileDemo() {
           }
         }}
       >
-        {STEPS.map((s) => (
+        {STEPS.map((s, i) => (
           <button
             key={s.id}
             type="button"
@@ -165,7 +179,11 @@ export function CaseFileDemo() {
             aria-selected={step === s.id}
             aria-controls={`${tablistId}-panel`}
             className={
-              step === s.id ? "case-demo-tab is-active" : "case-demo-tab"
+              step === s.id
+                ? "case-demo-tab is-active"
+                : i < stepIndex
+                  ? "case-demo-tab is-done"
+                  : "case-demo-tab"
             }
             onClick={() => goTo(s.id)}
           >
@@ -174,13 +192,27 @@ export function CaseFileDemo() {
         ))}
       </div>
 
+      {!paused && (
+        <div className="case-demo-progress" aria-hidden>
+          <span
+            key={animKey}
+            className="case-demo-progress-bar"
+            style={{ animationDuration: `${STEP_MS}ms` }}
+          />
+        </div>
+      )}
+
       <div
-        className="case-demo-panel"
+        className="case-demo-panel case-demo-panel-anim"
         role="tabpanel"
         id={`${tablistId}-panel`}
         aria-labelledby={`${tablistId}-${step}`}
+        key={animKey}
       >
         <p className="case-demo-blurb">
+          <span className="case-demo-stage mono">
+            {String(stepIndex + 1).padStart(2, "0")} / {STEPS.length}
+          </span>
           {STEPS.find((s) => s.id === step)?.blurb}
         </p>
 
@@ -201,7 +233,7 @@ export function CaseFileDemo() {
               step === "handoff" ||
               step === "review" ||
               step === "learn") && (
-              <div className="case-roster">
+              <div className="case-roster case-reveal">
                 <p className="case-label">Roster</p>
                 <p className="mono case-order">{EXAMPLE.order.join(" → ")}</p>
                 <ul className="case-excluded">
@@ -218,7 +250,7 @@ export function CaseFileDemo() {
               step === "handoff" ||
               step === "review" ||
               step === "learn") && (
-              <div className="case-commitments">
+              <div className="case-commitments case-reveal">
                 <p className="case-label">Commitments</p>
                 <ul>
                   <li>ARCH — boundaries + one-way doors</li>
@@ -230,14 +262,14 @@ export function CaseFileDemo() {
             )}
 
             {step === "handoff" && (
-              <p className="case-handoff mono">
+              <p className="case-handoff mono case-reveal">
                 handoff BE → SEC · artifact: docs/threat-model.md · unresolved:
                 IdP claim mapping
               </p>
             )}
 
             {step === "learn" && (
-              <p className="case-learn">
+              <p className="case-learn case-reveal">
                 Learning proposal: protected <span className="mono">auth/</span>{" "}
                 paths require security evidence before{" "}
                 <span className="mono">ready_to_merge</span>. Accept via CLI —
@@ -249,21 +281,25 @@ export function CaseFileDemo() {
           <div className="gate-board" aria-label="Release gates">
             <p className="case-label">Gates</p>
             <ul className="gate-list">
-              {gates.map((g) => (
-                <li key={g.id} className={`gate-item gate-${g.status}`}>
+              {gates.map((g, i) => (
+                <li
+                  key={g.id}
+                  className={`gate-item gate-${g.status}`}
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
                   <span className="mono">{g.id}</span>
                   <span>{g.status}</span>
                 </li>
               ))}
             </ul>
             {step === "handoff" && (
-              <p className="gate-note">
+              <p className="gate-note case-reveal">
                 Security gate blocked until threat-model evidence is attached —
                 filenames alone never count as a pass.
               </p>
             )}
             {(step === "review" || step === "learn") && (
-              <p className="gate-note gate-note-ok">
+              <p className="gate-note gate-note-ok case-reveal">
                 After tests + threat notes: verdict <strong>ready</strong>.
               </p>
             )}
