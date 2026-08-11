@@ -574,6 +574,20 @@ export const PACKAGE = {
   author: "Salil Hiremath",
 } as const;
 
+/**
+ * Active users from the external dashboard.
+ * Edit `label` / `count` here when the dashboard number changes.
+ */
+export const ACTIVE_USERS = {
+  label: "Active users",
+  /** Display string shown on the site (keep short: "1.2k") */
+  labelCount: "1.2k",
+  /** Exact integer for aria / analytics */
+  count: 1200,
+  note: "From external dashboard · active installs",
+  href: "/design-partners",
+} as const;
+
 export type ChangelogRelease = {
   version: string;
   date: string;

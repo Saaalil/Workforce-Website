@@ -2006,6 +2006,71 @@ code,
   font-size: 1.1rem;
 }
 
+.stats-cycle {
+  margin-top: 1.75rem;
+  max-width: 22rem;
+}
+
+.stats-cycle .npm-dl {
+  margin-top: 0.55rem;
+}
+
+.stats-cycle-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.stats-dot {
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.stats-dot.is-active {
+  color: var(--fg);
+  border-color: var(--border-hover);
+  background: var(--bg-elevated);
+}
+
+.stats-dot:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stats-slide {
+  animation: stats-fade 0.35s var(--ease);
+}
+
+@keyframes stats-fade {
+  from {
+    opacity: 0.35;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stats-cycle-compact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.stats-cycle-sep {
+  color: var(--fg-dim);
+}
+
 .numbered-steps li {
   margin: 0.55rem 0;
   color: var(--fg-muted);

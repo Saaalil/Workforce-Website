@@ -83,6 +83,7 @@ function gatesFor(step: DemoStep): Gate[] {
 
 export function CaseFileDemo() {
   const [step, setStep] = useState<DemoStep>("request");
+  const [paused, setPaused] = useState(false);
   const tablistId = useId();
   const gates = gatesFor(step);
   const verdict =
@@ -96,16 +97,46 @@ export function CaseFileDemo() {
     track("case_demo_step_viewed", { route: "/", step });
   }, [step]);
 
+  // Auto-cycle steps; pause on hover/focus/manual pick; respect reduced motion
+  useEffect(() => {
+    if (paused) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    const id = window.setInterval(() => {
+      setStep((current) => {
+        const i = STEPS.findIndex((s) => s.id === current);
+        return STEPS[(i + 1) % STEPS.length]!.id;
+      });
+    }, 3800);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  const goTo = (next: DemoStep) => {
+    setStep(next);
+    setPaused(true);
+  };
+
   return (
-    <div className="case-demo" aria-labelledby={`${tablistId}-title`}>
+    <div
+      className="case-demo"
+      aria-labelledby={`${tablistId}-title`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setPaused(false);
+        }
+      }}
+    >
       <div className="case-demo-head">
         <p className="section-label" id={`${tablistId}-title`}>
           Interactive example
         </p>
         <h2 className="section-title">One request → a reviewable case</h2>
         <p className="section-lead">
-          Example labeled sample — not live repository data. Keyboard: arrow keys
-          on the step list.
+          Example labeled sample — not live repository data. Auto-cycles;
+          hover or use arrow keys to pause and explore.
         </p>
       </div>
 
@@ -117,11 +148,11 @@ export function CaseFileDemo() {
           const i = STEPS.findIndex((s) => s.id === step);
           if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             e.preventDefault();
-            setStep(STEPS[(i + 1) % STEPS.length]!.id);
+            goTo(STEPS[(i + 1) % STEPS.length]!.id);
           }
           if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
             e.preventDefault();
-            setStep(STEPS[(i - 1 + STEPS.length) % STEPS.length]!.id);
+            goTo(STEPS[(i - 1 + STEPS.length) % STEPS.length]!.id);
           }
         }}
       >
@@ -136,7 +167,7 @@ export function CaseFileDemo() {
             className={
               step === s.id ? "case-demo-tab is-active" : "case-demo-tab"
             }
-            onClick={() => setStep(s.id)}
+            onClick={() => goTo(s.id)}
           >
             {s.label}
           </button>
